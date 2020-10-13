@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.test.cleanArchRoomTest.R
-import com.test.cleanArchRoomTest.databinding.FragmentDashboardBinding
 import com.test.cleanArchRoomTest.application.ext.addTo
+import com.test.cleanArchRoomTest.databinding.FragmentDashboardBinding
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
@@ -19,6 +19,7 @@ class DashboardFragment : DaggerFragment() {
 
     @Inject
     lateinit var dashboardViewModel: DashboardViewModel
+
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private lateinit var binding: FragmentDashboardBinding
@@ -43,7 +44,7 @@ class DashboardFragment : DaggerFragment() {
 
     private fun observeData() {
         dashboardViewModel.charsList.observe(viewLifecycleOwner, Observer {
-            binding.textDashboard.text = it[0].info?.next
+            binding.textDashboard.text = it.info?.next
         })
     }
 

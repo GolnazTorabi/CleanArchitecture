@@ -19,7 +19,7 @@ class DashboardViewModel @Inject constructor(private val getCharactersUseCase: G
 
     val disposables = CompositeDisposable()
     val progressVisible = MutableLiveData<Boolean>()
-    val charsList = MutableLiveData<List<ResponseCharacter>>()
+    val charsList = MutableLiveData<ResponseCharacter>()
     val showErrorGettingChars = StickyAction<Boolean>()
 
     fun bound() {
@@ -41,7 +41,7 @@ class DashboardViewModel @Inject constructor(private val getCharactersUseCase: G
             is GetCharactersUseCase.Result.Loading -> progressVisible.value = true
             is GetCharactersUseCase.Result.Success -> {
                 charsList.value = result.responseCharacter
-                Log.d(TAG, "handleResult: " + result.responseCharacter[0])
+                Log.d(TAG, "handleResult: " + result.responseCharacter)
             }
             is GetCharactersUseCase.Result.Failure -> showErrorGettingChars.trigger(true)
         }

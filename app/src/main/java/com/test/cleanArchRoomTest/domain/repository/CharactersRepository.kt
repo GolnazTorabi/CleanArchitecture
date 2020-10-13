@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 interface CharactersRepository {
 
-    fun getCharacters(): Single<List<ResponseCharacter>>
+    fun getCharacters(): Single<ResponseCharacter>
 }

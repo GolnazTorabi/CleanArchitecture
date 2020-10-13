@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class CharactersRepositoryImpl @Inject constructor(private val charactersApi: CharactersApi):
     CharactersRepository {
-    override fun getCharacters(): Single<List<ResponseCharacter>> {
+    override fun getCharacters(): Single<ResponseCharacter> {
         return charactersApi.getCharacters()
     }
 }
