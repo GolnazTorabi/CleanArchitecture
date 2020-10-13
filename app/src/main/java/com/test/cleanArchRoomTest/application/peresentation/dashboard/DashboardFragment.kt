@@ -12,7 +12,7 @@ import com.test.cleanArchRoomTest.R
 import com.test.cleanArchRoomTest.databinding.FragmentDashboardBinding
 import com.test.cleanArchRoomTest.application.ext.addTo
 import dagger.android.support.DaggerFragment
-import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class DashboardFragment : DaggerFragment() {

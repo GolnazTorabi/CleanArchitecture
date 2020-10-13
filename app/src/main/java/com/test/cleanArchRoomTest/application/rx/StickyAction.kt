@@ -1,7 +1,8 @@
 package com.test.cleanArchRoomTest.application.rx
 
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.subjects.BehaviorSubject
+import io.reactivex.Observable
+import io.reactivex.subjects.BehaviorSubject
+
 
 @Suppress("UNCHECKED_CAST")
 class StickyAction<T> {
@@ -20,7 +21,7 @@ class StickyAction<T> {
         return subject.filter { value -> value != EMPTY }.doOnNext { this.clearValue(it) }
     }
 
-    fun value(): T {
+    fun value(): T? {
         return subject.value
     }
 

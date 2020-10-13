@@ -4,10 +4,10 @@ package com.test.cleanArchRoomTest.domain.usecase
 import android.util.Log
 import com.test.cleanArchRoomTest.data.response.ResponseCharacter
 import com.test.cleanArchRoomTest.domain.repository.CharactersRepository
-import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 import com.test.cleanArchRoomTest.domain.usecase.GetCharactersUseCase.Result.Failure
 import com.test.cleanArchRoomTest.domain.usecase.GetCharactersUseCase.Result.Success
+import io.reactivex.Observable
 
 class GetCharactersUseCase @Inject constructor(private val charactersRepository: CharactersRepository) {
     sealed class Result{
@@ -19,11 +19,9 @@ class GetCharactersUseCase @Inject constructor(private val charactersRepository:
     fun getCharacters(): Observable<Result> {
         return charactersRepository.getCharacters()
             .toObservable()
-            .map<Result>{Success(it)}
-            .onErrorReturn{Failure(it)}
-            /*.startWith{Result}*/
-
-
+            .map { Success(it) as Result }
+            .onErrorReturn { Failure(it) }
+            .startWith(Result.Loading)
 
     }
 }

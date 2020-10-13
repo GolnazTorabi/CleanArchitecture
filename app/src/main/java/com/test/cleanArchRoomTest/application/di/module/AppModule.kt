@@ -3,6 +3,7 @@ package com.test.cleanArchRoomTest.application.di.module
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.test.cleanArchRoomTest.application.di.component.ViewModelSubComponent
 import com.test.cleanArchRoomTest.application.di.factory.ViewModelFactory
 import com.test.cleanArchRoomTest.data.ApiInterface
@@ -13,7 +14,6 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -35,7 +35,7 @@ internal class AppModule {
         builder.writeTimeout(60, TimeUnit.SECONDS)
         return Retrofit.Builder()
             .baseUrl("https://rickandmortyapi.com/")
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .client(builder.build())
             .build()

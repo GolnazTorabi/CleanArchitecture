@@ -57,15 +57,19 @@ dependencies {
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+  // implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
 
 
 
-    //rxJava
+ /*   //rxJava
     //rxAndroid
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
-
+*/
+    //rx
+    implementation "io.reactivex.rxjava2:rxjava:2.2.19"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
     //jackson
     implementation 'com.fasterxml.jackson.core:jackson-core:2.10.1'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.10.1'
