@@ -9,6 +9,7 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class GetCharactersUseCase @Inject constructor(private val charactersRepository: CharactersRepository) {
+
     sealed class Result{
         object Loading : Result()
         data class Success(val responseCharacter: ResponseCharacter): Result()

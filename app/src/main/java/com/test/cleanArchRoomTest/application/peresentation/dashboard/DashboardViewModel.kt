@@ -36,13 +36,9 @@ class DashboardViewModel @Inject constructor(private val getCharactersUseCase: G
     }
 
     private fun handleResult(result: GetCharactersUseCase.Result) {
-        Log.d(TAG, "handleResult: " + result)
         when (result) {
             is GetCharactersUseCase.Result.Loading -> progressVisible.value = true
-            is GetCharactersUseCase.Result.Success -> {
-                charsList.value = result.responseCharacter
-                Log.d(TAG, "handleResult: " + result.responseCharacter)
-            }
+            is GetCharactersUseCase.Result.Success -> charsList.value = result.responseCharacter
             is GetCharactersUseCase.Result.Failure -> showErrorGettingChars.trigger(true)
         }
     }
