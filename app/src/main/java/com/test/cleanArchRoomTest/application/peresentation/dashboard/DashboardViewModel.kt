@@ -35,6 +35,11 @@ class DashboardViewModel @Inject constructor(private val getCharactersUseCase: G
         disposables.clear()
     }
 
+    override fun onCleared() {
+        super.onCleared()
+
+    }
+
     private fun handleResult(result: GetCharactersUseCase.Result) {
         when (result) {
             is GetCharactersUseCase.Result.Loading -> progressVisible.value = true
