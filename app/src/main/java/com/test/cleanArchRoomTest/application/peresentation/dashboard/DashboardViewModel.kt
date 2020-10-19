@@ -1,11 +1,9 @@
 package com.test.cleanArchRoomTest.application.peresentation.dashboard
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.test.cleanArchRoomTest.application.ext.addTo
-import com.test.cleanArchRoomTest.application.rx.StickyAction
+import com.test.cleanArchRoomTest.utils.ext.addTo
+import com.test.cleanArchRoomTest.utils.rx.StickyAction
 import com.test.cleanArchRoomTest.data.response.ResponseCharacter
 import com.test.cleanArchRoomTest.domain.usecase.GetCharactersUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
