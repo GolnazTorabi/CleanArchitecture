@@ -4,6 +4,5 @@ import com.test.cleanArchRoomTest.data.response.ResponseCharacter
 import io.reactivex.Single
 
 interface CharactersRepository {
-
     fun getCharacters(): Single<ResponseCharacter>
 }
