@@ -18,6 +18,9 @@ interface CharacterDao {
     @Delete
     fun deleteAllCharacters(characters: List<CharactersData>): Single<Int>
 
+    @Query("DELETE FROM Characters")
+    fun deleteAllCharacters(): Single<Int>
+
     @Delete
     fun deleteSpecificCharacter(characters: CharactersData): Single<Int>
 
