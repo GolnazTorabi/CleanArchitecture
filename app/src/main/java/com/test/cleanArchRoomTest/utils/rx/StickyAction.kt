@@ -1,4 +1,4 @@
-package com.test.cleanArchRoomTest.application.rx
+package com.test.cleanArchRoomTest.utils.rx
 
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject

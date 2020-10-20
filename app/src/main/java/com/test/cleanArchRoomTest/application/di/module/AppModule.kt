@@ -3,10 +3,13 @@ package com.test.cleanArchRoomTest.application.di.module
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.Room
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.test.cleanArchRoomTest.application.di.component.ViewModelSubComponent
 import com.test.cleanArchRoomTest.application.di.factory.ViewModelFactory
 import com.test.cleanArchRoomTest.data.ApiInterface
+import com.test.cleanArchRoomTest.data.database.AppDatabase
+import com.test.cleanArchRoomTest.data.database.CharacterDao
 import com.test.cleanArchRoomTest.data.repository.CharactersRepositoryImpl
 import com.test.cleanArchRoomTest.domain.repository.CharactersRepository
 import dagger.Module
@@ -70,12 +73,16 @@ internal class AppModule {
     }
 */
 
-    /*  @Singleton
+    @Singleton
     @Provides
     fun provideRoomDatabase(application: Application): AppDatabase {
-        return Room.databaseBuilder(application.applicationContext, AppDatabase::class.java, "VANDAR-DB")
+        return Room.databaseBuilder(
+            application.applicationContext,
+            AppDatabase::class.java,
+            "AppData"
+        )
             .allowMainThreadQueries().fallbackToDestructiveMigration().build()
-    }*/
+    }
 
     @Provides
     fun provideUserRepository(repo: CharactersRepositoryImpl): CharactersRepository = repo
@@ -83,11 +90,10 @@ internal class AppModule {
     /*@Provides
     fun provideSharedPreferences(repo: AppSharedPreferences): SharedPreferencesHelper = repo
 */
-/*
     @Provides
-    fun provideUserDao(database: AppDatabase): UserDao {
-        return database.userDao()
-    }*/
+    fun provideUserDao(database: AppDatabase): CharacterDao {
+        return database.charactersDao()
+    }
 
 
 }

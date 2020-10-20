@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.test.cleanArchRoomTest.R
-import com.test.cleanArchRoomTest.application.ext.addTo
+import com.test.cleanArchRoomTest.utils.ext.addTo
 import com.test.cleanArchRoomTest.databinding.FragmentDashboardBinding
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
