@@ -15,7 +15,7 @@ import javax.inject.Inject
 class DashboardViewModel @Inject constructor(private val getCharactersUseCase: GetCharactersUseCase) :
     ViewModel() {
 
-    val disposables = CompositeDisposable()
+    private val disposables = CompositeDisposable()
     val progressVisible = MutableLiveData<Boolean>()
     val charsList = MutableLiveData<ResponseCharacter>()
     val showErrorGettingChars = StickyAction<Boolean>()

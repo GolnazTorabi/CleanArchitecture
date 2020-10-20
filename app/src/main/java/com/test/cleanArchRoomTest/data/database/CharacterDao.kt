@@ -9,8 +9,11 @@ import io.reactivex.Single
 @Dao
 interface CharacterDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertCharacters(characters: CharactersData): Maybe<Long>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCharacter(characters: CharactersData): Maybe<Long>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCharacters(characters: List<CharactersData>): Maybe<List<Long>>
 
     @Delete
     fun deleteAllCharacters(characters: List<CharactersData>): Single<Int>
@@ -25,7 +28,7 @@ interface CharacterDao {
     fun updateSpecificCharacters(characters: CharactersData): Completable
 
     @Query("Select * From Characters")
-    fun getAllCharacters(): Maybe<List<CharactersData>>
+    fun getAllCharacters(): Maybe<List<CharactersData>?>
 
     @Query("Select * From Characters Where id = :id")
     fun getSpecificCharacters(id: Int): Maybe<CharactersData>
