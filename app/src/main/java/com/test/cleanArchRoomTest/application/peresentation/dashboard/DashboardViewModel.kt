@@ -1,5 +1,6 @@
 package com.test.cleanArchRoomTest.application.peresentation.dashboard
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.test.cleanArchRoomTest.utils.ext.addTo
@@ -12,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
 
 import javax.inject.Inject
 
-class DashboardViewModel @Inject constructor(private val getCharactersUseCase: GetCharactersUseCase) :
+class DashboardViewModel @ViewModelInject constructor(private val getCharactersUseCase: GetCharactersUseCase) :
     ViewModel() {
 
     private val disposables = CompositeDisposable()

@@ -1,24 +1,12 @@
 package com.test.cleanArchRoomTest.application
 
+
 import android.app.Activity
 import android.app.Application
-import com.test.cleanArchRoomTest.application.di.component.DaggerAppComponent
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
+import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
-class BaseApplication : Application(), HasActivityInjector {
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+@HiltAndroidApp
+class BaseApplication : Application() {
 
-    override fun onCreate() {
-        super.onCreate()
-
-        DaggerAppComponent.builder().application(this)
-            .build().inject(this)
-    }
-
-    override fun activityInjector(): DispatchingAndroidInjector<Activity> {
-        return dispatchingAndroidInjector
-    }
 }

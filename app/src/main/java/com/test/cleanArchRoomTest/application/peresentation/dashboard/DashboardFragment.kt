@@ -6,22 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.test.cleanArchRoomTest.R
 import com.test.cleanArchRoomTest.utils.ext.addTo
 import com.test.cleanArchRoomTest.databinding.FragmentDashboardBinding
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class DashboardFragment : DaggerFragment() {
+@AndroidEntryPoint
+class DashboardFragment : Fragment() {
 
-    @Inject
-    lateinit var dashboardViewModel: DashboardViewModel
+     private val dashboardViewModel: DashboardViewModel by viewModels()
 
-    @Inject
-    lateinit var factory: ViewModelProvider.Factory
     private lateinit var binding: FragmentDashboardBinding
 
     private val disposables = CompositeDisposable()
@@ -37,7 +38,6 @@ class DashboardFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dashboardViewModel = ViewModelProvider(this, factory).get(DashboardViewModel::class.java)
         dashboardViewModel.bound()
         observeData()
     }

@@ -21,4 +21,5 @@ data class CharactersData(
     @SuppressWarnings(RoomWarnings.DEFAULT_CONSTRUCTOR)
     @Embedded(prefix = "loc")
     var location: Location? = null
+
 )
