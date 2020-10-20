@@ -2,6 +2,7 @@ package com.test.cleanArchRoomTest.data.repository
 
 import com.test.cleanArchRoomTest.data.CharactersApi
 import com.test.cleanArchRoomTest.data.response.ResponseCharacter
+import com.test.cleanArchRoomTest.data.response.ResponseSpecificCharacter
 import com.test.cleanArchRoomTest.domain.repository.CharactersRepository
 import io.reactivex.Single
 import javax.inject.Inject
@@ -12,5 +13,9 @@ class CharactersRepositoryImpl @Inject constructor(private val charactersApi: Ch
     CharactersRepository {
     override fun getCharacters(): Single<ResponseCharacter> {
         return charactersApi.getCharacters()
+    }
+
+    override fun getSpecificCharacter(id: String): Single<ResponseSpecificCharacter> {
+        return charactersApi.getSpecificCharacter(id)
     }
 }
