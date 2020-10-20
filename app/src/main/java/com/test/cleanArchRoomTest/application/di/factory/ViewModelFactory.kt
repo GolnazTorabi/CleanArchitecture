@@ -34,6 +34,7 @@ class ViewModelFactory @Inject constructor(viewModelSubComponent: ViewModelSubCo
 
     init {
         // View models cannot be injected directly because they won't be bound to the owner's view model scope.
-        creators[DashboardViewModel::class.java] = Callable { viewModelSubComponent!!.dashboardViewModel() }
+        creators[DashboardViewModel::class.java] =
+            Callable { viewModelSubComponent!!.dashboardViewModel() }
     }
 }

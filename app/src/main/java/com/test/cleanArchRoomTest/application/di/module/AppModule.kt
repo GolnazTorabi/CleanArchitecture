@@ -84,12 +84,14 @@ internal class AppModule {
             .allowMainThreadQueries().fallbackToDestructiveMigration().build()
     }
 
+    @Singleton
     @Provides
     fun provideUserRepository(repo: CharactersRepositoryImpl): CharactersRepository = repo
 
     /*@Provides
     fun provideSharedPreferences(repo: AppSharedPreferences): SharedPreferencesHelper = repo
 */
+    @Singleton
     @Provides
     fun provideUserDao(database: AppDatabase): CharacterDao {
         return database.charactersDao()
