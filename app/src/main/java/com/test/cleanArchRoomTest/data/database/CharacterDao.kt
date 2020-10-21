@@ -33,6 +33,6 @@ interface CharacterDao {
     @Query("Select * From Characters")
     fun getAllCharacters(): Maybe<List<CharactersData>?>
 
-    @Query("Select * From Characters Where id = :id")
+    @Query("Select * From Characters Where characterId = :id")
     fun getSpecificCharacters(id: String): Maybe<CharactersData>
 }

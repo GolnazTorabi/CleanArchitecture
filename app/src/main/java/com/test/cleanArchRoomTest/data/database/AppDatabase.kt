@@ -7,4 +7,6 @@ import com.test.cleanArchRoomTest.domain.model.CharactersData
 @Database(entities = [CharactersData::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun charactersDao(): CharacterDao
+    abstract fun episodesDao(): EpisodeDao
+    abstract fun characterEpisodesDao(): CharacterEpisodeDao
 }

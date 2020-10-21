@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ResponseEpisodes(
-	val results: List<ResultsItem?>? = null,
+	val results: List<ResultsItemEpisode?>? = null,
 	val info: Info? = null
 ) : Parcelable
 
