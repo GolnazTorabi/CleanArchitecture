@@ -12,4 +12,6 @@ interface ApiInterface {
 
     @GET("api/character/{id}")
     fun getSpecificCharacter(@Path("id") id: String): Single<ResponseSpecificCharacter>
+
+
 }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import com.test.cleanArchRoomTest.data.CharactersApi
 import com.test.cleanArchRoomTest.data.database.CharacterDao
 import com.test.cleanArchRoomTest.data.mapper.character.CharacterToDbMapper
+import com.test.cleanArchRoomTest.data.mapper.character.SpecificCharacterToDbMapper
 import com.test.cleanArchRoomTest.data.response.ResponseCharacter
 import com.test.cleanArchRoomTest.data.response.ResponseSpecificCharacter
 import com.test.cleanArchRoomTest.data.response.ResultsItem
@@ -53,9 +54,32 @@ class CharactersRepositoryImpl @Inject constructor(
         val list = CharacterToDbMapper().reverseMap(data)
         return characterDao.insertCharacters(list)
     }
+    private fun insertUser(data:ResponseSpecificCharacter):Maybe<Long>{
+        val value = SpecificCharacterToDbMapper().reverseMap(data)
+        return value?.let { characterDao.insertCharacter(it) }!!
+    }
 
     override fun getSpecificCharacter(id: String): Single<ResponseSpecificCharacter> {
         return charactersApi.getSpecificCharacter(id)
 
+    }
+
+    override fun getSpecificCharacterFromDB(id: String): Maybe<CharactersData> {
+        return characterDao.getSpecificCharacters(id).flatMap {
+          if(it.name.isNullOrEmpty()){
+              getSpecificCharacter(id).toMaybe().flatMap { server ->
+                  if(server.name.isNullOrEmpty()){
+                      Maybe.just(CharactersData())
+                  } else{
+                      insertUser(server).flatMap {
+                          getSpecificCharacterFromDB(id)
+                      }
+                  }
+
+              }
+          } else{
+              Maybe.just(it)
+          }
+        }
     }
 }

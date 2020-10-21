@@ -34,5 +34,5 @@ interface CharacterDao {
     fun getAllCharacters(): Maybe<List<CharactersData>?>
 
     @Query("Select * From Characters Where id = :id")
-    fun getSpecificCharacters(id: Int): Maybe<CharactersData>
+    fun getSpecificCharacters(id: String): Maybe<CharactersData>
 }
