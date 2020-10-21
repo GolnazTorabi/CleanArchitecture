@@ -10,10 +10,17 @@ import com.test.cleanArchRoomTest.domain.model.EpisodesWithCharacters
 interface CharacterEpisodeDao {
     @Transaction
     @Query("SELECT * FROM Characters")
-    fun getPlaylistsWithSongs(): List<CharactersWithEpisode>
+    fun getCharactersWithEpisodes(): List<CharactersWithEpisode>
 
     @Transaction
     @Query("SELECT * FROM Episode")
-    fun getSongsWithPlaylists(): List<EpisodesWithCharacters>
+    fun getEpisodesWithCharacters(): List<EpisodesWithCharacters>
 
+    @Transaction
+    @Query("SELECT * FROM Characters Where characterId =:id")
+    fun getCharacterWithEpisodes(id: String): List<CharactersWithEpisode>
+
+    @Transaction
+    @Query("SELECT * FROM Episode Where episodeId =:id")
+    fun getEpisodeWithCharacter(id: String): List<EpisodesWithCharacters>
 }
