@@ -2,9 +2,11 @@ package com.test.cleanArchRoomTest.application.di.module
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.test.cleanArchRoomTest.data.ApiInterface
+import com.test.cleanArchRoomTest.data.repository.CharacterEpisodeRepositoryImpl
 import com.test.cleanArchRoomTest.data.repository.CharactersRepositoryImpl
 import com.test.cleanArchRoomTest.data.repository.EpisodeRepositoryImpl
 import com.test.cleanArchRoomTest.data.repository.LocationRepositoryImpl
+import com.test.cleanArchRoomTest.domain.repository.CharacterEpisodeRepository
 import com.test.cleanArchRoomTest.domain.repository.CharactersRepository
 import com.test.cleanArchRoomTest.domain.repository.EpisodeRepository
 import com.test.cleanArchRoomTest.domain.repository.LocationRepository
@@ -65,5 +67,8 @@ class NetworkModule {
 
     @Provides
     fun provideEpisodeRepository(repo: EpisodeRepositoryImpl): EpisodeRepository = repo
+
+    @Provides
+    fun provideCharacterEpisodeRepository(repo: CharacterEpisodeRepositoryImpl): CharacterEpisodeRepository = repo
 
 }
