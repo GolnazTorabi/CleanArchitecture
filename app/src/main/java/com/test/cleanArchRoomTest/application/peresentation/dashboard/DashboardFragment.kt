@@ -9,14 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.test.cleanArchRoomTest.R
 import com.test.cleanArchRoomTest.utils.ext.addTo
 import com.test.cleanArchRoomTest.databinding.FragmentDashboardBinding
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
@@ -26,6 +23,8 @@ class DashboardFragment : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
 
     private val disposables = CompositeDisposable()
+
+    private lateinit var data :String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,11 +39,25 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         dashboardViewModel.bound()
         observeData()
+        observeEpisodes()
+        observeCharacterEpisode()
+    }
+
+    private fun observeCharacterEpisode() {
+        dashboardViewModel.episodesCharactersList.observe(viewLifecycleOwner, Observer {
+            binding.textDashboard.text = data.plus(it[0].character.name + it[0].episodes[0].name)
+        })
+    }
+
+    private fun observeEpisodes() {
+        dashboardViewModel.episodesList.observe(viewLifecycleOwner, Observer {
+             data.plus(it[0].name)
+        })
     }
 
     private fun observeData() {
         dashboardViewModel.charsList.observe(viewLifecycleOwner, Observer {
-            binding.textDashboard.text = it.info?.next
+            data = it[0].name.toString()
         })
     }
 
@@ -71,3 +84,4 @@ class DashboardFragment : Fragment() {
         super.onDestroy()
     }
 }
+

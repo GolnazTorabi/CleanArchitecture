@@ -1,7 +1,7 @@
 package com.test.cleanArchRoomTest.domain.usecase
 
 
-import com.test.cleanArchRoomTest.data.response.ResponseCharacter
+import com.test.cleanArchRoomTest.domain.model.CharactersData
 import com.test.cleanArchRoomTest.domain.repository.CharactersRepository
 import com.test.cleanArchRoomTest.domain.usecase.GetCharactersUseCase.Result.Failure
 import com.test.cleanArchRoomTest.domain.usecase.GetCharactersUseCase.Result.Success
@@ -12,12 +12,12 @@ class GetCharactersUseCase @Inject constructor(private val charactersRepository:
 
     sealed class Result{
         object Loading : Result()
-        data class Success(val responseCharacter: ResponseCharacter): Result()
+        data class Success(val responseCharacter: List<CharactersData>): Result()
         data class Failure(val throwable: Throwable) : Result()
     }
 
     fun getCharacters(): Observable<Result> {
-        return charactersRepository.getCharacters()
+        return charactersRepository.getCharactersFromDb(true)
             .toObservable()
             .map { Success(it) as Result }
             .onErrorReturn { Failure(it) }
