@@ -3,7 +3,11 @@ package com.test.cleanArchRoomTest.application.di.module
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.test.cleanArchRoomTest.data.ApiInterface
 import com.test.cleanArchRoomTest.data.repository.CharactersRepositoryImpl
+import com.test.cleanArchRoomTest.data.repository.EpisodeRepositoryImpl
+import com.test.cleanArchRoomTest.data.repository.LocationRepositoryImpl
 import com.test.cleanArchRoomTest.domain.repository.CharactersRepository
+import com.test.cleanArchRoomTest.domain.repository.EpisodeRepository
+import com.test.cleanArchRoomTest.domain.repository.LocationRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -55,5 +59,11 @@ class NetworkModule {
     }
     @Provides
     fun provideUserRepository(repo: CharactersRepositoryImpl): CharactersRepository = repo
+
+    @Provides
+    fun provideLocationRepository(repo: LocationRepositoryImpl): LocationRepository = repo
+
+    @Provides
+    fun provideEpisodeRepository(repo: EpisodeRepositoryImpl): EpisodeRepository = repo
 
 }

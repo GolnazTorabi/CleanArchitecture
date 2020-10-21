@@ -1,5 +1,6 @@
-package com.test.cleanArchRoomTest.data
+package com.test.cleanArchRoomTest.data.Api
 
+import com.test.cleanArchRoomTest.data.ApiInterface
 import com.test.cleanArchRoomTest.data.response.ResponseCharacter
 import com.test.cleanArchRoomTest.data.response.ResponseSpecificCharacter
 import io.reactivex.Single

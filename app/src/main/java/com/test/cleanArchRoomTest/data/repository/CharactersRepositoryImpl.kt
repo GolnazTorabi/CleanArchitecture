@@ -1,7 +1,7 @@
 package com.test.cleanArchRoomTest.data.repository
 
 import android.annotation.SuppressLint
-import com.test.cleanArchRoomTest.data.CharactersApi
+import com.test.cleanArchRoomTest.data.Api.CharactersApi
 import com.test.cleanArchRoomTest.data.database.CharacterDao
 import com.test.cleanArchRoomTest.data.mapper.character.CharacterToDbMapper
 import com.test.cleanArchRoomTest.data.mapper.character.SpecificCharacterToDbMapper
