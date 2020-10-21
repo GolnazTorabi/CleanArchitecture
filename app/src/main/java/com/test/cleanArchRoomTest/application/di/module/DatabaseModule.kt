@@ -4,9 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.test.cleanArchRoomTest.data.database.AppDatabase
 import com.test.cleanArchRoomTest.data.database.CharacterDao
-import com.test.cleanArchRoomTest.data.repository.CharactersRepositoryImpl
-import com.test.cleanArchRoomTest.domain.repository.CharactersRepository
-import dagger.Binds
+import com.test.cleanArchRoomTest.data.database.CharacterEpisodeDao
+import com.test.cleanArchRoomTest.data.database.EpisodeDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,6 +31,15 @@ class DatabaseModule {
     @Provides
     fun provideCharacterDao(database: AppDatabase): CharacterDao {
         return database.charactersDao()
+    }
+    @Provides
+    fun provideEpisodeDao(database: AppDatabase): EpisodeDao {
+        return database.episodesDao()
+    }
+
+    @Provides
+    fun provideCharacterEpisodeDao(database: AppDatabase): CharacterEpisodeDao {
+        return database.characterEpisodesDao()
     }
 
 
