@@ -1,8 +1,10 @@
 package com.test.cleanArchRoomTest.data.response
 
 import android.os.Parcelable
+import androidx.room.TypeConverters
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.test.cleanArchRoomTest.data.database.converter.StringConverter
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -43,6 +45,7 @@ data class Info(
 ) : Parcelable
 
 @Parcelize
+@TypeConverters(StringConverter::class)
 data class ResultsItem(
 
     @field:JsonProperty("image")
@@ -67,7 +70,7 @@ data class ResultsItem(
     val location: Location? = null,
 
     @field:JsonProperty("episode")
-    val episode: List<String?>? = null,
+    val episode: List<ResultsItemEpisode?>? = null,
 
     @field:JsonProperty("id")
     val id: Int? = null,

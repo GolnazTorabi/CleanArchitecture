@@ -40,10 +40,10 @@ class DashboardFragment : Fragment() {
         dashboardViewModel.bound()
         observeData()
         observeEpisodes()
-        // observeCharacterEpisode()
+         //observeCharacterEpisode()
     }
 
-  /*  private fun observeCharacterEpisode() {
+   /* private fun observeCharacterEpisode() {
         dashboardViewModel.episodesCharactersList.observe(viewLifecycleOwner, Observer {
             binding.textDashboard.text = data.plus(it[0].character.name + it[0].episodes[0].name)
         })
@@ -51,7 +51,7 @@ class DashboardFragment : Fragment() {
 
     private fun observeEpisodes() {
         dashboardViewModel.episodesList.observe(viewLifecycleOwner, Observer {
-            binding.textDashboard.text = data.plus(it[0].name)
+            data.plus(it[0].name)
         })
     }
 

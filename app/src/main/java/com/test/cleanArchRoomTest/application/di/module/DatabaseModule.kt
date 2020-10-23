@@ -20,18 +20,20 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext context: Context):AppDatabase{
-         return Room.databaseBuilder(
-             context,
-             AppDatabase::class.java,
-             "CHARACTERS-DATA.db"
-         ).build()
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "CHARACTERS-DATA.db"
+        ).allowMainThreadQueries()
+            .build()
     }
 
     @Provides
     fun provideCharacterDao(database: AppDatabase): CharacterDao {
         return database.charactersDao()
     }
+
     @Provides
     fun provideEpisodeDao(database: AppDatabase): EpisodeDao {
         return database.episodesDao()

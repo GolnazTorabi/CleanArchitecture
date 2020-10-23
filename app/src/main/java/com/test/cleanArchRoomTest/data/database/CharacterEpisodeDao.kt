@@ -1,13 +1,18 @@
 package com.test.cleanArchRoomTest.data.database
 
-import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
+import com.test.cleanArchRoomTest.domain.model.CharacterEpisodeCrossRef
+import com.test.cleanArchRoomTest.domain.model.CharactersData
 import com.test.cleanArchRoomTest.domain.model.CharactersWithEpisode
 import com.test.cleanArchRoomTest.domain.model.EpisodesWithCharacters
+import io.reactivex.Maybe
 
 @Dao
 interface CharacterEpisodeDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCharacterEpisodes(value: List<CharacterEpisodeCrossRef>): Maybe<List<Long>>
+
     @Transaction
     @Query("SELECT * FROM Characters")
     fun getCharactersWithEpisodes(): List<CharactersWithEpisode>

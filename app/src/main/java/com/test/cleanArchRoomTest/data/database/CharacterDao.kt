@@ -2,6 +2,7 @@ package com.test.cleanArchRoomTest.data.database
 
 import androidx.room.*
 import com.test.cleanArchRoomTest.domain.model.CharactersData
+import com.test.cleanArchRoomTest.domain.model.CharactersWithEpisode
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
@@ -35,4 +36,8 @@ interface CharacterDao {
 
     @Query("Select * From Characters Where characterId = :id")
     fun getSpecificCharacters(id: String): Maybe<CharactersData>
+
+    @Transaction
+    @Query("SELECT * FROM Characters")
+    fun getCharactersWithEpisodes(): List<CharactersWithEpisode>
 }

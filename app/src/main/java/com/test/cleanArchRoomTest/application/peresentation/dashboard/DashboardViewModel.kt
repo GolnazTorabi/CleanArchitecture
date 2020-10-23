@@ -27,7 +27,7 @@ class DashboardViewModel @ViewModelInject constructor(
     val progressVisible = MutableLiveData<Boolean>()
     val charsList = MutableLiveData<List<CharactersData>>()
     val episodesList = MutableLiveData<List<EpisodeData>>()
-    private val episodesCharactersList = MutableLiveData<List<CharactersWithEpisode>>()
+    val episodesCharactersList = MutableLiveData<List<CharactersWithEpisode>>()
     val showErrorGettingChars = StickyAction<Boolean>()
 
     fun bound() {
@@ -63,7 +63,7 @@ class DashboardViewModel @ViewModelInject constructor(
             is GetEpisodesUseCase.ResultEpisode.LoadingEpisode -> progressVisible.value = true
             is GetEpisodesUseCase.ResultEpisode.SuccessEpisode -> {
                 episodesList.value = result.responseEpisode
-                //episodesCharactersList.value = getCharacterEpisodesUseCase.getCharacters()
+                episodesCharactersList.value = getCharacterEpisodesUseCase.getCharacters()
             }
             is GetEpisodesUseCase.ResultEpisode.FailureEpisode -> showErrorGettingChars.trigger(true)
         }
