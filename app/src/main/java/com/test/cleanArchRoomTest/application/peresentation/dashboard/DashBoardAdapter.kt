@@ -1,6 +1,7 @@
 package com.test.cleanArchRoomTest.application.peresentation.dashboard
 
 import android.app.Activity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil

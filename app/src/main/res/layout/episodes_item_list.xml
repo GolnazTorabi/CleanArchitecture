@@ -1,45 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/min_margin_eight">
 
-        <TextView
-            android:id="@+id/episode_id"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/min_margin_eight"
-            android:layout_marginTop="@dimen/padding_min_8"
-            android:layout_marginEnd="@dimen/padding_min_8"
-            android:layout_marginBottom="@dimen/padding_min_8"
-            android:gravity="end"
-            android:padding="@dimen/padding_min_8"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_12"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/select_arrow"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/select_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/min_margin_eight"
-            android:layout_marginTop="@dimen/padding_min_8"
-            android:layout_marginBottom="@dimen/padding_min_8"
-            android:padding="@dimen/padding_min_8"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_arrow_back_24" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/episode_id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/min_margin_eight"
+                android:layout_marginTop="@dimen/padding_min_8"
+                android:layout_marginEnd="@dimen/padding_min_8"
+                android:layout_marginBottom="@dimen/padding_min_8"
+                android:gravity="end"
+                android:padding="@dimen/padding_min_8"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_12"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/select_arrow"
+                app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.cardview.widget.CardView>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/select_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/min_margin_eight"
+                android:layout_marginTop="@dimen/padding_min_8"
+                android:layout_marginBottom="@dimen/padding_min_8"
+                android:padding="@dimen/padding_min_8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_arrow_back_24" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 </layout>

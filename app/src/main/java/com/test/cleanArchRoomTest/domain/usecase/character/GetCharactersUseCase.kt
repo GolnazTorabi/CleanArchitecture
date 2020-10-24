@@ -18,24 +18,23 @@ class GetCharactersUseCase @Inject constructor(private val charactersRepository:
     }
 
     fun getCharacters(hasNetwork: Boolean): Observable<Result> {
-        return if (!hasNetwork) {
-            charactersRepository.getCharactersFromDb()
+        /*return if (!hasNetwork) {*/
+            return charactersRepository.getCharactersFromDb()
                 .toObservable()
                 .map {
                     Success(it) as Result
                 }
                 .onErrorReturn { Failure(it) }
                 .startWith(Result.Loading)
-        } else {
+        /*} else {
             charactersRepository.deleteAllCharacters()
             charactersRepository.getCharacters().toObservable().map {
-                charactersRepository.insertAllCharacters(it.results!!.filterNotNull())
                 val data = CharacterToDbMapper().reverseMap(it.results)
                 Success(data) as Result
             }
                 .onErrorReturn { Failure(it) }
                 .startWith(Result.Loading)
-        }
+        }*/
     }
 }
 

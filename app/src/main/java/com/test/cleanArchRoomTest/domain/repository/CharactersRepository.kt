@@ -13,7 +13,7 @@ interface CharactersRepository {
     fun getCharacters(): Single<ResponseCharacter>
     fun getSpecificCharacter(id: String): Single<ResponseSpecificCharacter>
     fun getSpecificCharacterFromDB(id: String): Maybe<CharactersData>
-    fun insertAllCharacters(data: List<ResultsItem>):Maybe<List<Long>>
+    fun insertAllCharacters(data: List<CharactersData>):Maybe<List<Long>>
     fun deleteAllCharacters():Single<Int>
     fun getCharacterEpisode(id: String):Maybe<List<String>>
 

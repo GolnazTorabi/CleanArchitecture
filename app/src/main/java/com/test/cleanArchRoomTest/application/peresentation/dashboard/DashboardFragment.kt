@@ -1,6 +1,8 @@
 package com.test.cleanArchRoomTest.application.peresentation.dashboard
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -89,7 +91,7 @@ class DashboardFragment : Fragment(), CharacterClicked {
 
     override fun onCharacterClicked(characterId: Int?) {
         //TODO open character episodes page
-        val bundle = bundleOf("characterId" to id.toString())
+        val bundle = bundleOf("characterId" to characterId.toString())
         findNavController().navigate(R.id.action_navigation_dashboard_to_episodesFragment, bundle)
     }
 }

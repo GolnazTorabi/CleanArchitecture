@@ -13,7 +13,9 @@ class GetCharacterEpisodesUseCase @Inject constructor(private val charactersRepo
     fun getEpisodes(id: String): Observable<Result> {
         return charactersRepository.getCharacterEpisode(id)
             .toObservable()
-            .map { Result.Success(it) as Result }
+            .map {
+                Result.Success(it) as Result
+            }
             .onErrorReturn { Result.Failure(it) }
 
     }

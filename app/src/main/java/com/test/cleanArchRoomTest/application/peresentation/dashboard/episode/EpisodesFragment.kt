@@ -1,8 +1,6 @@
 package com.test.cleanArchRoomTest.application.peresentation.dashboard.episode
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.cleanArchRoomTest.R
 import com.test.cleanArchRoomTest.databinding.EpisodesFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
 class EpisodesFragment : Fragment(), ShowDetail {
 
+    private val disposables = CompositeDisposable()
     private lateinit var binding: EpisodesFragmentBinding
     private val viewModel: EpisodesViewModel by viewModels()
     private lateinit var episodeAdapter: EpisodeAdapter
@@ -54,15 +54,21 @@ class EpisodesFragment : Fragment(), ShowDetail {
 
     private fun observeData() {
         viewModel.episodes.observe(viewLifecycleOwner, Observer {
-            episodes.addAll(it)
+            episodes.addAll(it[0].split(",", "[", "]"))
+            episodes.removeAt(0)
+            episodes.removeAt(episodes.size - 1)
             episodeAdapter.notifyDataSetChanged()
-            Log.d(TAG, "observeData: $it")
         })
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         viewModel.unbound()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        disposables.clear()
     }
 
     override fun onShowDetailClicked(id: String) {

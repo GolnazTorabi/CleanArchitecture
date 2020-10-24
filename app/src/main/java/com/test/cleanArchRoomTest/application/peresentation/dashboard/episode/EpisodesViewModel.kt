@@ -1,5 +1,7 @@
 package com.test.cleanArchRoomTest.application.peresentation.dashboard.episode
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,7 +20,8 @@ class EpisodesViewModel @ViewModelInject constructor(private val getCharacterEpi
     val showErrorGettingChars = StickyAction<Boolean>()
 
     fun getEpisodes(id: String?) {
-        getCharacterEpisodesUseCase.getEpisodes(id ?: "").subscribeOn(Schedulers.io())
+        getCharacterEpisodesUseCase.getEpisodes(id!!)
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { handleResult(it) }
             .addTo(disposables)
@@ -26,8 +29,10 @@ class EpisodesViewModel @ViewModelInject constructor(private val getCharacterEpi
 
     private fun handleResult(result: GetCharacterEpisodesUseCase.Result?) {
         when (result) {
-            is GetCharacterEpisodesUseCase.Result.Success -> episodes.value =
-                result.responseCharacter
+            is GetCharacterEpisodesUseCase.Result.Success -> {
+                Log.d(TAG, "handleResult: "+result.responseCharacter)
+                episodes.value = result.responseCharacter
+            }
             is GetCharacterEpisodesUseCase.Result.Failure -> showErrorGettingChars.trigger(true)
         }
     }

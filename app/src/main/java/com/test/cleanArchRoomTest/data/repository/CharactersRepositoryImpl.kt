@@ -1,9 +1,10 @@
 package com.test.cleanArchRoomTest.data.repository
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import com.test.cleanArchRoomTest.data.Api.CharactersApi
 import com.test.cleanArchRoomTest.data.database.CharacterDao
 import com.test.cleanArchRoomTest.data.mapper.character.CharacterToDbMapper
-import com.test.cleanArchRoomTest.data.mapper.character.SpecificCharacterToDbMapper
 import com.test.cleanArchRoomTest.data.response.ResponseCharacter
 import com.test.cleanArchRoomTest.data.response.ResponseSpecificCharacter
 import com.test.cleanArchRoomTest.data.response.ResultsItem
@@ -70,8 +71,7 @@ class CharactersRepositoryImpl @Inject constructor(
         return characterDao.getSpecificCharacters(id)
     }
 
-    override fun insertAllCharacters(data: List<ResultsItem>): Maybe<List<Long>> {
-        val value = CharacterToDbMapper().reverseMap(data)
-        return characterDao.insertCharacters(value)
+    override fun insertAllCharacters(data: List<CharactersData>): Maybe<List<Long>> {
+        return characterDao.insertCharacters(data)
     }
 }
