@@ -3,4 +3,9 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="last_location_seen">آخرین مکان دیده شده : </string>
+    <string name="title_characters_list">شخصیت ها</string>
+    <string name="error_title">متاسفانه مشکلی بووجود آمده است.</string>
+    <string name="ok">باشه</string>
 </resources>

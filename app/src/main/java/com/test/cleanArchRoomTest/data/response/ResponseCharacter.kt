@@ -70,7 +70,7 @@ data class ResultsItem(
     val location: Location? = null,
 
     @field:JsonProperty("episode")
-    val episode: List<ResultsItemEpisode?>? = null,
+    val episode: List<String?>? = null,
 
     @field:JsonProperty("id")
     val id: Int? = null,

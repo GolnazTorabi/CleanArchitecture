@@ -8,9 +8,11 @@ import io.reactivex.Single
 
 interface CharactersRepository {
 
-    fun getCharactersFromDb(hasNetwork:Boolean): Maybe<List<CharactersData>?>
+    fun getCharactersFromDb(): Maybe<List<CharactersData>?>
     fun getCharacters(): Single<ResponseCharacter>
     fun getSpecificCharacter(id: String): Single<ResponseSpecificCharacter>
     fun getSpecificCharacterFromDB(id: String): Maybe<CharactersData>
+    fun insertAllCharacters(data: ResponseSpecificCharacter):Maybe<Long>
+    fun deleteAllCharacters():Single<Int>
 
 }

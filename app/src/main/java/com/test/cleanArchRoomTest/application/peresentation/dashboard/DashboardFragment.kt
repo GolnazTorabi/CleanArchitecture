@@ -9,18 +9,24 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.cleanArchRoomTest.R
 import com.test.cleanArchRoomTest.databinding.FragmentDashboardBinding
+import com.test.cleanArchRoomTest.domain.model.CharactersData
+import com.test.cleanArchRoomTest.utils.NetworkConnection
 import com.test.cleanArchRoomTest.utils.ext.addTo
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
-class DashboardFragment : Fragment() {
+class DashboardFragment : Fragment(), CharacterClicked {
 
     private val dashboardViewModel: DashboardViewModel by viewModels()
 
     private lateinit var binding: FragmentDashboardBinding
+    private lateinit var adapter: DashBoardAdapter
+
+    private var characterList = ArrayList<CharactersData>()
 
     private val disposables = CompositeDisposable()
 
@@ -37,27 +43,23 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dashboardViewModel.bound()
+        initAdapter()
+        dashboardViewModel.bound(NetworkConnection.checkNetwork())
         observeData()
-        observeEpisodes()
-         //observeCharacterEpisode()
+
     }
 
-   /* private fun observeCharacterEpisode() {
-        dashboardViewModel.episodesCharactersList.observe(viewLifecycleOwner, Observer {
-            binding.textDashboard.text = data.plus(it[0].character.name + it[0].episodes[0].name)
-        })
-    }*/
-
-    private fun observeEpisodes() {
-        dashboardViewModel.episodesList.observe(viewLifecycleOwner, Observer {
-            data.plus(it[0].name)
-        })
+    private fun initAdapter() {
+        adapter = DashBoardAdapter(requireActivity(), characterList, this)
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.charactersList.layoutManager = layoutManager
+        binding.charactersList.adapter = adapter
     }
 
     private fun observeData() {
         dashboardViewModel.charsList.observe(viewLifecycleOwner, Observer {
-            data = it[0].name.toString()
+            characterList.addAll(it)
+            adapter.notifyDataSetChanged()
         })
     }
 
@@ -67,9 +69,8 @@ class DashboardFragment : Fragment() {
             .subscribe {
                 context?.let { it1 ->
                     AlertDialog.Builder(it1)
-                    /* .setTitle(getString(string.error_title))
-                     .setMessage(getString(string.restaurant_list_error_message))
-                     .setNeutralButton(getString(string.ok)) { dialog, _ -> dialog.dismiss() }*/
+                        .setTitle(getString(R.string.error_title))
+                        .setNeutralButton(getString(R.string.ok)) { dialog, _ -> dialog.dismiss() }
                 }
             }.addTo(disposables)
     }
@@ -82,6 +83,10 @@ class DashboardFragment : Fragment() {
     override fun onDestroy() {
         dashboardViewModel.unbound()
         super.onDestroy()
+    }
+
+    override fun onCharacterClicked(characterId: Int?) {
+        //TODO open character episodes page
     }
 }
 

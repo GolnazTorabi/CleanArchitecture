@@ -7,5 +7,6 @@ import io.reactivex.Single
 
 interface EpisodeRepository {
     fun getEpisodes():Single<ResponseEpisodes>
-    fun getEpisodesFromDB(hasNetwork:Boolean):Maybe<List<EpisodeData>?>
+    fun getEpisodesFromDB():Maybe<List<EpisodeData>?>
+
 }

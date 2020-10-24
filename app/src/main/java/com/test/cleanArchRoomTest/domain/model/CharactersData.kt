@@ -20,5 +20,6 @@ data class CharactersData(
     val name: String? = null,
     @SuppressWarnings(RoomWarnings.DEFAULT_CONSTRUCTOR)
     @Embedded(prefix = "loc")
-    var location: Location? = null
+    var location: Location? = null,
+    val status: String? = null
 )

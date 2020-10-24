@@ -20,7 +20,8 @@ class CharacterToDbMapper : Mapper<CharactersData, ResultsItem>() {
                 value.url,
                 value.origin,
                 value.name,
-                value.location
+                value.location,
+                value.status
             )
         }
     }

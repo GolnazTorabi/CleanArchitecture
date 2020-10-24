@@ -16,9 +16,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class DashboardViewModel @ViewModelInject constructor(
-    private val getCharactersUseCase: GetCharactersUseCase,
-    private val getEpisodesUseCase: GetEpisodesUseCase,
-    private val getCharacterEpisodesUseCase: GetCharWithEpisodeUseCase
+    private val getCharactersUseCase: GetCharactersUseCase
 
 ) :
     ViewModel() {
@@ -26,12 +24,10 @@ class DashboardViewModel @ViewModelInject constructor(
     private val disposables = CompositeDisposable()
     val progressVisible = MutableLiveData<Boolean>()
     val charsList = MutableLiveData<List<CharactersData>>()
-    val episodesList = MutableLiveData<List<EpisodeData>>()
-    val episodesCharactersList = MutableLiveData<List<CharactersWithEpisode>>()
     val showErrorGettingChars = StickyAction<Boolean>()
 
-    fun bound() {
-        getCharactersUseCase.getCharacters()
+    fun bound(hasNetwork: Boolean) {
+        getCharactersUseCase.getCharacters(hasNetwork)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { handleResult(it) }
@@ -42,15 +38,12 @@ class DashboardViewModel @ViewModelInject constructor(
     private fun handleResult(result: GetCharactersUseCase.Result) {
         when (result) {
             is GetCharactersUseCase.Result.Loading -> progressVisible.value = true
-            is GetCharactersUseCase.Result.Success -> {
-                boundEpisode()
-                charsList.value = result.responseCharacter
-            }
+            is GetCharactersUseCase.Result.Success -> charsList.value = result.responseCharacter
             is GetCharactersUseCase.Result.Failure -> showErrorGettingChars.trigger(true)
         }
     }
 
-    private fun boundEpisode() {
+  /*  private fun boundEpisode() {
         getEpisodesUseCase.getEpisodes()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -67,7 +60,7 @@ class DashboardViewModel @ViewModelInject constructor(
             }
             is GetEpisodesUseCase.ResultEpisode.FailureEpisode -> showErrorGettingChars.trigger(true)
         }
-    }
+    }*/
 
     fun unbound() {
         disposables.clear()
