@@ -12,7 +12,8 @@ interface CharactersRepository {
     fun getCharacters(): Single<ResponseCharacter>
     fun getSpecificCharacter(id: String): Single<ResponseSpecificCharacter>
     fun getSpecificCharacterFromDB(id: String): Maybe<CharactersData>
-    fun insertAllCharacters(data: ResponseSpecificCharacter):Maybe<Long>
+    fun insertAllCharacters(data: ResponseCharacter):Maybe<List<Long>>
     fun deleteAllCharacters():Single<Int>
+    fun getCharacterEpisode(id: String):Maybe<List<String>>
 
 }

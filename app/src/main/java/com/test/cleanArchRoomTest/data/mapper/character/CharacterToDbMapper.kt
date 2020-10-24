@@ -21,7 +21,8 @@ class CharacterToDbMapper : Mapper<CharactersData, ResultsItem>() {
                 value.origin,
                 value.name,
                 value.location,
-                value.status
+                value.status,
+                value.episode
             )
         }
     }

@@ -1,11 +1,12 @@
-package com.test.cleanArchRoomTest.domain.usecase
+package com.test.cleanArchRoomTest.domain.usecase.character
 
 
 import com.test.cleanArchRoomTest.data.mapper.character.CharacterToDbMapper
 import com.test.cleanArchRoomTest.domain.model.CharactersData
 import com.test.cleanArchRoomTest.domain.repository.CharactersRepository
-import com.test.cleanArchRoomTest.domain.usecase.GetCharactersUseCase.Result.Failure
-import com.test.cleanArchRoomTest.domain.usecase.GetCharactersUseCase.Result.Success
+import com.test.cleanArchRoomTest.domain.usecase.character.GetCharactersUseCase.Result.Failure
+import com.test.cleanArchRoomTest.domain.usecase.character.GetCharactersUseCase.Result.Success
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -21,12 +22,17 @@ class GetCharactersUseCase @Inject constructor(private val charactersRepository:
         return if (!hasNetwork) {
             charactersRepository.getCharactersFromDb()
                 .toObservable()
-                .map { Success(it) as Result }
+                .map {
+                    Success(it) as Result
+                }
                 .onErrorReturn { Failure(it) }
                 .startWith(Result.Loading)
         } else {
             charactersRepository.deleteAllCharacters()
             charactersRepository.getCharacters().toObservable().map {
+                charactersRepository.insertAllCharacters(it).flatMap { data ->
+                    Maybe.just(data)
+                }
                 val data = CharacterToDbMapper().reverseMap(it.results)
                 Success(data) as Result
             }

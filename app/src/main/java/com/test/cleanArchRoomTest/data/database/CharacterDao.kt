@@ -26,6 +26,9 @@ interface CharacterDao {
     @Query("DELETE FROM Characters")
     fun deleteAllCharacters(): Single<Int>
 
+    @Query("Select episodes From Characters Where characterId = :id")
+    fun getCharacterEpisodes(id: String):Maybe<List<String>>
+
     /*  @Delete
       fun deleteAllCharacters(characters: List<CharactersData>): Single<Int>
 

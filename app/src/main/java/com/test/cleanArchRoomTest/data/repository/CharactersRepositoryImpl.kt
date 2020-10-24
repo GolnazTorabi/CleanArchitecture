@@ -2,6 +2,7 @@ package com.test.cleanArchRoomTest.data.repository
 
 import com.test.cleanArchRoomTest.data.Api.CharactersApi
 import com.test.cleanArchRoomTest.data.database.CharacterDao
+import com.test.cleanArchRoomTest.data.mapper.character.CharacterToDbMapper
 import com.test.cleanArchRoomTest.data.mapper.character.SpecificCharacterToDbMapper
 import com.test.cleanArchRoomTest.data.response.ResponseCharacter
 import com.test.cleanArchRoomTest.data.response.ResponseSpecificCharacter
@@ -50,13 +51,13 @@ class CharactersRepositoryImpl @Inject constructor(
          return characterDao.insertCharacters(list)
      }*/
 
-    override fun insertAllCharacters(data: ResponseSpecificCharacter): Maybe<Long> {
-        val value = SpecificCharacterToDbMapper().reverseMap(data)
-        return value?.let { characterDao.insertCharacter(it) }!!
-    }
 
     override fun deleteAllCharacters(): Single<Int> {
         return characterDao.deleteAllCharacters()
+    }
+
+    override fun getCharacterEpisode(id: String): Maybe<List<String>> {
+        return characterDao.getCharacterEpisodes(id)
     }
 
     override fun getSpecificCharacter(id: String): Single<ResponseSpecificCharacter> {
@@ -66,5 +67,10 @@ class CharactersRepositoryImpl @Inject constructor(
 
     override fun getSpecificCharacterFromDB(id: String): Maybe<CharactersData> {
         return characterDao.getSpecificCharacters(id)
+    }
+
+    override fun insertAllCharacters(data: ResponseCharacter): Maybe<List<Long>> {
+        val value = CharacterToDbMapper().reverseMap(data.results)
+        return characterDao.insertCharacters(value)
     }
 }

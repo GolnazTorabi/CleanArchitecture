@@ -1,13 +1,12 @@
 package com.test.cleanArchRoomTest.domain.model
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.RoomWarnings
+import androidx.room.*
+import com.test.cleanArchRoomTest.data.database.converter.StringConverter
 import com.test.cleanArchRoomTest.data.response.Location
 import com.test.cleanArchRoomTest.data.response.Origin
 
 @Entity(tableName = "Characters")
+@TypeConverters(StringConverter::class)
 data class CharactersData(
     @PrimaryKey(autoGenerate = true)
     val characterId: Int? = 0,
@@ -21,5 +20,6 @@ data class CharactersData(
     @SuppressWarnings(RoomWarnings.DEFAULT_CONSTRUCTOR)
     @Embedded(prefix = "loc")
     var location: Location? = null,
-    val status: String? = null
+    val status: String? = null,
+    val episodes : List<String?>? = null
 )

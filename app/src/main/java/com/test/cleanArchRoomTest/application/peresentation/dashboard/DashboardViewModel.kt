@@ -4,11 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.test.cleanArchRoomTest.domain.model.CharactersData
-import com.test.cleanArchRoomTest.domain.model.CharactersWithEpisode
-import com.test.cleanArchRoomTest.domain.model.EpisodeData
-import com.test.cleanArchRoomTest.domain.usecase.GetCharWithEpisodeUseCase
-import com.test.cleanArchRoomTest.domain.usecase.GetCharactersUseCase
-import com.test.cleanArchRoomTest.domain.usecase.GetEpisodesUseCase
+import com.test.cleanArchRoomTest.domain.usecase.character.GetCharactersUseCase
 import com.test.cleanArchRoomTest.utils.ext.addTo
 import com.test.cleanArchRoomTest.utils.rx.StickyAction
 import io.reactivex.android.schedulers.AndroidSchedulers
