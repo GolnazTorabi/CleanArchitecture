@@ -6,6 +6,7 @@ import com.test.cleanArchRoomTest.data.mapper.character.CharacterToDbMapper
 import com.test.cleanArchRoomTest.data.mapper.character.SpecificCharacterToDbMapper
 import com.test.cleanArchRoomTest.data.response.ResponseCharacter
 import com.test.cleanArchRoomTest.data.response.ResponseSpecificCharacter
+import com.test.cleanArchRoomTest.data.response.ResultsItem
 import com.test.cleanArchRoomTest.domain.model.CharactersData
 import com.test.cleanArchRoomTest.domain.repository.CharactersRepository
 import io.reactivex.Maybe
@@ -69,8 +70,8 @@ class CharactersRepositoryImpl @Inject constructor(
         return characterDao.getSpecificCharacters(id)
     }
 
-    override fun insertAllCharacters(data: ResponseCharacter): Maybe<List<Long>> {
-        val value = CharacterToDbMapper().reverseMap(data.results)
+    override fun insertAllCharacters(data: List<ResultsItem>): Maybe<List<Long>> {
+        val value = CharacterToDbMapper().reverseMap(data)
         return characterDao.insertCharacters(value)
     }
 }

@@ -6,7 +6,6 @@ import com.test.cleanArchRoomTest.domain.model.CharactersData
 import com.test.cleanArchRoomTest.domain.repository.CharactersRepository
 import com.test.cleanArchRoomTest.domain.usecase.character.GetCharactersUseCase.Result.Failure
 import com.test.cleanArchRoomTest.domain.usecase.character.GetCharactersUseCase.Result.Success
-import io.reactivex.Maybe
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -30,9 +29,7 @@ class GetCharactersUseCase @Inject constructor(private val charactersRepository:
         } else {
             charactersRepository.deleteAllCharacters()
             charactersRepository.getCharacters().toObservable().map {
-                charactersRepository.insertAllCharacters(it).flatMap { data ->
-                    Maybe.just(data)
-                }
+                charactersRepository.insertAllCharacters(it.results!!.filterNotNull())
                 val data = CharacterToDbMapper().reverseMap(it.results)
                 Success(data) as Result
             }
