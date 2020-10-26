@@ -34,6 +34,14 @@
         <argument
             android:name="characterId"
             android:defaultValue="None" />
+        <action
+            android:id="@+id/action_episodesFragment_to_episodeDetailFragment"
+            app:destination="@id/episodeDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/episodeDetailFragment"
+        android:name="com.test.cleanArchRoomTest.application.peresentation.dashboard.episode.detail.EpisodeDetailFragment"
+        android:label="episode_detail_fragment"
+        tools:layout="@layout/episode_detail_fragment" />
 
 </navigation>
