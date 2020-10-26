@@ -12,8 +12,14 @@ interface EpisodeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertEpisode(episode: EpisodeData): Maybe<Long>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertEpisodes(episodes: List<EpisodeData>): Maybe<List<Long>>
+    @Query("Select * From Episode Where episodeId = :id")
+    fun getSpecificEpisodes(id: String): Maybe<EpisodeData>
+
+    @Query("DELETE FROM Episode")
+    fun deleteAllEpisodes(): Single<Int>
+
+   /* @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertEpisodes(episodes: List<EpisodeData>): Maybe<List<Long>>*/
 
 /*    @Delete
     fun deleteAllEpisodes(episodes: List<EpisodeData>): Single<Int>
@@ -30,9 +36,8 @@ interface EpisodeDao {
     @Update
     fun updateSpecificEpisode(episodes: EpisodeData): Completable*/
 
-    @Query("Select * From Episode")
+    /*@Query("Select * From Episode")
     fun getAllEpisodes(): Maybe<List<EpisodeData>?>
 
-    @Query("Select * From Episode Where episodeId = :id")
-    fun getSpecificEpisodes(id: String): Maybe<EpisodeData>
+    */
 }

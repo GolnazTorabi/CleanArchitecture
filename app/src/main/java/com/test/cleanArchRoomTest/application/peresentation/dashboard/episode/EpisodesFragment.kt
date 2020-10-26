@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.cleanArchRoomTest.R
 import com.test.cleanArchRoomTest.databinding.EpisodesFragmentBinding
+import com.test.cleanArchRoomTest.domain.model.CharacterEpisodeCrossRef
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
@@ -22,7 +25,7 @@ class EpisodesFragment : Fragment(), ShowDetail {
     private val viewModel: EpisodesViewModel by viewModels()
     private lateinit var episodeAdapter: EpisodeAdapter
     private var episodes = ArrayList<String>()
-    private val id by lazy {
+    private val characterId by lazy {
         arguments?.getString("characterId", "")
     }
 
@@ -48,7 +51,7 @@ class EpisodesFragment : Fragment(), ShowDetail {
     }
 
     private fun getEpisodes() {
-        viewModel.getEpisodes(id)
+        viewModel.getEpisodes(characterId)
         observeData()
     }
 
@@ -72,6 +75,9 @@ class EpisodesFragment : Fragment(), ShowDetail {
     }
 
     override fun onShowDetailClicked(id: String) {
+        val bundle =
+            bundleOf("id" to CharacterEpisodeCrossRef(id.toInt(), characterId?.toInt() ?: 0))
+        findNavController().navigate(R.id.action_episodesFragment_to_episodeDetailFragment,bundle)
         //TODO go to detail list
     }
 }

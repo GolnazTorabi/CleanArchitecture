@@ -11,9 +11,9 @@ import io.reactivex.Maybe
 interface CharacterEpisodeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCharacterEpisodes(value: List<CharacterEpisodeCrossRef>): Maybe<List<Long>>
+    fun insertCharacterEpisode(value: CharacterEpisodeCrossRef): Maybe<Long>
 
-    @Transaction
+   /* @Transaction
     @Query("SELECT * FROM Characters")
     fun getCharactersWithEpisodes(): List<CharactersWithEpisode>
 
@@ -27,5 +27,5 @@ interface CharacterEpisodeDao {
 
     @Transaction
     @Query("SELECT * FROM Episode Where episodeId =:id")
-    fun getEpisodeWithCharacter(id: String): List<EpisodesWithCharacters>
+    fun getEpisodeWithCharacter(id: String): List<EpisodesWithCharacters>*/
 }
