@@ -11,8 +11,8 @@ data class EpisodeData(
     @PrimaryKey(autoGenerate = true)
     val episodeId: Int? = null,
     val name: String? = null,
-    val residents: List<String?>? = null,
-    val type: String? = null,
-    val dimension: String? = null,
+    val characters: List<String?>? = null,
+    val episode: String? = null,
+    val created: String? = null,
     val url: String? = null
 )

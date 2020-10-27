@@ -1,20 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".application.peresentation.dashboard.episode.detail.EpisodeDetailFragment">
 
-    <TextView
-        android:id="@+id/ids"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/avg_margin_16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".application.peresentation.dashboard.episode.detail.EpisodeDetailFragment">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/padding_min_8"
+            android:text="@string/episode_detail"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/avg_margin_16"
+            android:background="@color/background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/avg_margin_16"
+                android:layout_marginEnd="@dimen/small_margin_4"
+                android:gravity="start"
+                android:padding="@dimen/padding_min_8"
+                android:text="@string/episode_name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/created"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/avg_margin_16"
+                android:layout_marginEnd="@dimen/small_margin_4"
+                android:gravity="start"
+                android:padding="@dimen/padding_min_8"
+                android:text="@string/episode_created"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/name" />
+
+            <TextView
+                android:id="@+id/episode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/avg_margin_16"
+                android:layout_marginEnd="@dimen/small_margin_4"
+                android:gravity="start"
+                android:padding="@dimen/padding_min_8"
+                android:text="@string/episode_episode"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/created" />
+
+            <TextView
+                android:id="@+id/url"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/avg_margin_16"
+                android:layout_marginEnd="@dimen/small_margin_4"
+                android:gravity="end"
+                android:padding="@dimen/padding_min_8"
+                android:text="@string/episode_url"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/episode" />
+
+            <TextView
+                android:id="@+id/character"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/avg_margin_16"
+                android:layout_marginEnd="@dimen/small_margin_4"
+                android:visibility="gone"
+                android:gravity="start"
+                android:padding="@dimen/padding_min_8"
+                android:text="@string/episode_character"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/url" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

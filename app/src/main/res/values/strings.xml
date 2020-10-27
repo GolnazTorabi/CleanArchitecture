@@ -9,4 +9,12 @@
     <string name="error_title">متاسفانه مشکلی بووجود آمده است.</string>
     <string name="ok">باشه</string>
     <string name="title_episodes">قسمت ها</string>
+    <string name="episode_detail">جزئیات قسمت %d</string>
+    <string name="episode_name">نام %s</string>
+    <string name="episode_created">ساخت %s</string>
+    <string name="episode_episode">قسمت  %s</string>
+    <string name="episode_url">url  %s</string>
+    <string name="episode_character">شخصیت ها  %s</string>
+
+
 </resources>

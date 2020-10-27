@@ -16,9 +16,9 @@ class EpisodeToDbMapper : Mapper<EpisodeData,ResultsItemEpisode>() {
              EpisodeData(
                  value.id,
                  value.name,
-                 value.residents,
-                 value.type,
-                 value.dimension,
+                 value.characters,
+                 value.episode,
+                 value.created,
                  value.url
              )
          }

@@ -1,21 +1,42 @@
 package com.test.cleanArchRoomTest.data.response
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ResponseEpisodes(
-	val results: List<ResultsItemEpisode?>? = null,
+
+	@field:JsonProperty("results")
+	val results: List<ResultsItem?>? = null,
+
+	@field:JsonProperty("info")
 	val info: Info? = null
 ) : Parcelable
 
+
+
 @Parcelize
 data class ResultsItemEpisode(
+
+	@field:JsonProperty("air_date")
+	val airDate: String? = null,
+
+	@field:JsonProperty("characters")
+	val characters: List<String?>? = null,
+
+	@field:JsonProperty("created")
 	val created: String? = null,
+
+	@field:JsonProperty("name")
 	val name: String? = null,
-	val residents: List<String?>? = null,
+
+	@field:JsonProperty("episode")
+	val episode: String? = null,
+
+	@field:JsonProperty("id")
 	val id: Int? = null,
-	val type: String? = null,
-	val dimension: String? = null,
+
+	@field:JsonProperty("url")
 	val url: String? = null
 ) : Parcelable

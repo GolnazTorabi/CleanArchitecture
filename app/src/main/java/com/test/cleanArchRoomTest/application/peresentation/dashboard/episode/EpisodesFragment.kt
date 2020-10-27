@@ -77,7 +77,6 @@ class EpisodesFragment : Fragment(), ShowDetail {
     }
 
     override fun onShowDetailClicked(id: String) {
-        Log.d(TAG, "onShowDetailClicked: $id.substring(0,id.length-1).toInt()")
         val bundle =
             bundleOf("id" to CharacterEpisodeCrossRef(id.toInt(), characterId?.toInt() ?: 0))
         findNavController().navigate(R.id.action_episodesFragment_to_episodeDetailFragment, bundle)
