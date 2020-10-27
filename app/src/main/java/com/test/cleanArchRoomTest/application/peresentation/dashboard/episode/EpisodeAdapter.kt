@@ -33,7 +33,8 @@ class EpisodeAdapter(
         if (holder is EpisodeViewHolder) {
             holder.setData(list[position])
             holder.binding.selectArrow.setOnClickListener {
-                onShowDetail.onShowDetailClicked(list[position].substringAfterLast("/"))
+                val data = list[position].substringAfterLast("/")
+                onShowDetail.onShowDetailClicked(data.substring(0, data.length - 1))
             }
         }
     }
@@ -42,6 +43,6 @@ class EpisodeAdapter(
 class EpisodeViewHolder(var binding: EpisodesItemListBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun setData(data: String) {
-        binding.episodeId.text = data
+        binding.episodeId.text = data.substring(0, data.length - 1)
     }
 }

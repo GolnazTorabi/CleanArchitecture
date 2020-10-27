@@ -55,25 +55,6 @@ class DashboardViewModel @ViewModelInject constructor(
             .subscribe()
     }
 
-    /*  private fun boundEpisode() {
-          getEpisodesUseCase.getEpisodes()
-              .subscribeOn(Schedulers.io())
-              .observeOn(AndroidSchedulers.mainThread())
-              .subscribe { handleEpisodeResult(it) }
-              .addTo(disposables)
-      }
-
-      private fun handleEpisodeResult(result: GetEpisodesUseCase.ResultEpisode?) {
-          when (result) {
-              is GetEpisodesUseCase.ResultEpisode.LoadingEpisode -> progressVisible.value = true
-              is GetEpisodesUseCase.ResultEpisode.SuccessEpisode -> {
-                  episodesList.value = result.responseEpisode
-                  episodesCharactersList.value = getCharacterEpisodesUseCase.getCharacters()
-              }
-              is GetEpisodesUseCase.ResultEpisode.FailureEpisode -> showErrorGettingChars.trigger(true)
-          }
-      }*/
-
     fun unbound() {
         disposables.clear()
     }

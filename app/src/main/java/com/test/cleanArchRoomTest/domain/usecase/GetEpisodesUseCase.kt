@@ -13,14 +13,14 @@ class GetEpisodesUseCase @Inject constructor(private val episodeRepository: Epis
         data class FailureEpisode(val throwable: Throwable) : ResultEpisode()
     }
 
-    fun getEpisodes(): Observable<ResultEpisode> {
+    /*fun getEpisodes(): Observable<ResultEpisode> {
         return episodeRepository.getEpisodesFromDB()
             .toObservable()
             .map { ResultEpisode.SuccessEpisode(it) as ResultEpisode }
             .onErrorReturn { ResultEpisode.FailureEpisode(it) }
             .startWith(ResultEpisode.LoadingEpisode)
 
-    }
+    }*/
 }
 
 

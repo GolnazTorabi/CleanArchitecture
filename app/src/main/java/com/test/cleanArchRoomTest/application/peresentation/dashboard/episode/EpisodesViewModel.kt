@@ -1,7 +1,5 @@
 package com.test.cleanArchRoomTest.application.peresentation.dashboard.episode
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,11 +28,17 @@ class EpisodesViewModel @ViewModelInject constructor(private val getCharacterEpi
     private fun handleResult(result: GetCharacterEpisodesUseCase.Result?) {
         when (result) {
             is GetCharacterEpisodesUseCase.Result.Success -> {
-                Log.d(TAG, "handleResult: "+result.responseCharacter)
-                episodes.value = result.responseCharacter
+                episodes.value = handleData(result.responseCharacter)
             }
             is GetCharacterEpisodesUseCase.Result.Failure -> showErrorGettingChars.trigger(true)
         }
+    }
+
+    private fun handleData(value: List<String>): ArrayList<String> {
+        val data: ArrayList<String> = value[0].split(",", "[", "]") as ArrayList<String>
+        data.removeAt(0)
+        data.removeAt(data.size - 1)
+        return data
     }
 
     fun unbound() {

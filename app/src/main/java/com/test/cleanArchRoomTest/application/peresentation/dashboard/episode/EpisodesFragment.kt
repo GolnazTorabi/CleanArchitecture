@@ -1,6 +1,8 @@
 package com.test.cleanArchRoomTest.application.peresentation.dashboard.episode
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,9 +59,9 @@ class EpisodesFragment : Fragment(), ShowDetail {
 
     private fun observeData() {
         viewModel.episodes.observe(viewLifecycleOwner, Observer {
-            episodes.addAll(it[0].split(",", "[", "]"))
-            episodes.removeAt(0)
-            episodes.removeAt(episodes.size - 1)
+            it.forEach { data ->
+                episodes.add(data.substringAfterLast("/"))
+            }
             episodeAdapter.notifyDataSetChanged()
         })
     }
@@ -75,9 +77,10 @@ class EpisodesFragment : Fragment(), ShowDetail {
     }
 
     override fun onShowDetailClicked(id: String) {
+        Log.d(TAG, "onShowDetailClicked: $id.substring(0,id.length-1).toInt()")
         val bundle =
             bundleOf("id" to CharacterEpisodeCrossRef(id.toInt(), characterId?.toInt() ?: 0))
-        findNavController().navigate(R.id.action_episodesFragment_to_episodeDetailFragment,bundle)
-        //TODO go to detail list
+        findNavController().navigate(R.id.action_episodesFragment_to_episodeDetailFragment, bundle)
+
     }
 }

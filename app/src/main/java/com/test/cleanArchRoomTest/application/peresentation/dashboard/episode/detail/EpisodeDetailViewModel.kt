@@ -3,6 +3,7 @@ package com.test.cleanArchRoomTest.application.peresentation.dashboard.episode.d
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.test.cleanArchRoomTest.domain.model.CharacterEpisodeCrossRef
 import com.test.cleanArchRoomTest.domain.model.EpisodeData
 import com.test.cleanArchRoomTest.domain.usecase.episode.GetEpisodeUseCase
 import com.test.cleanArchRoomTest.domain.usecase.episode.InsertCharacterEpisodeCrossUseCase
@@ -26,30 +27,41 @@ class EpisodeDetailViewModel @ViewModelInject constructor(
         disposables.clear()
     }
 
-    fun getEpisodeDetail(id: String,characterId:String) {
+    fun getEpisodeDetail(id: String, characterId: String) {
         getEpisodeUseCase.getEpisodes(id, true)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { handleData(it,characterId) }
+            .subscribe { handleData(it, characterId) }
             .addTo(disposables)
     }
 
-    private fun handleData(it: GetEpisodeUseCase.Result?,characterId:String) {
+    private fun handleData(it: GetEpisodeUseCase.Result?, characterId: String) {
         when (it) {
             is GetEpisodeUseCase.Result.Success -> {
                 episodeData.value = it.episode
                 insertEpisode(it.episode)
-                insertCharacterEpisode(it.episode.episodeId,characterId)
+                insertCharacterEpisode(it.episode.episodeId!!, characterId)
             }
             is GetEpisodeUseCase.Result.Failure -> showErrorGettingChars.trigger(true)
         }
     }
 
-    private fun insertCharacterEpisode(episodeId: Int?, characterId: String) {
-
+    private fun insertCharacterEpisode(episodeId: Int, characterId: String) {
+        insertCharacterEpisodeCrossUseCase.insertCharacterEpisodeCross(
+            CharacterEpisodeCrossRef(
+                episodeId,
+                characterId.toInt()
+            )
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
     }
 
     private fun insertEpisode(episode: EpisodeData) {
-
+        insertEpisodeUseCase.insertEpisode(data = episode)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
     }
 }
