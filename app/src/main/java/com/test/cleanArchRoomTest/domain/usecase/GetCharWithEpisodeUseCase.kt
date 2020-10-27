@@ -8,7 +8,7 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class GetCharWithEpisodeUseCase @Inject constructor(private val characterEpisodeRepository: CharacterEpisodeRepository) {
-    fun getCharacters(): List<CharactersWithEpisode> {
+   /* fun getCharacters(): List<CharactersWithEpisode> {
         return characterEpisodeRepository.getCharacterEpisode()
-    }
+    }*/
 }
