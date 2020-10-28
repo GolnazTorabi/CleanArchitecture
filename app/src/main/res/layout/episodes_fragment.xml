@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".application.peresentation.dashboard.episode.EpisodesFragment">
+    tools:context=".episode.view.episode.EpisodesFragment">
 
     <TextView
         android:id="@+id/title"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:textStyle="bold"
         android:textSize="@dimen/text_size_18"
-        android:textColor="@color/white"
+        android:textColor="@color/textColor"
         android:text="@string/title_episodes"
         android:padding="@dimen/padding_min_8"/>
     <androidx.recyclerview.widget.RecyclerView
