@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="episode"
+            type="String" />
+    </data>
+
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -26,16 +33,16 @@
                 android:textSize="@dimen/text_size_12"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/select_arrow"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/select_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/min_margin_eight"
                 android:layout_marginTop="@dimen/padding_min_8"
+                android:layout_marginEnd="@dimen/min_margin_eight"
                 android:layout_marginBottom="@dimen/padding_min_8"
                 android:padding="@dimen/padding_min_8"
                 app:layout_constraintBottom_toBottomOf="parent"

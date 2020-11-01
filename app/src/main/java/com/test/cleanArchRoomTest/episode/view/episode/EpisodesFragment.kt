@@ -1,6 +1,7 @@
 package com.test.cleanArchRoomTest.episode.view.episode
 
 import android.app.Activity
+import android.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +26,7 @@ class EpisodesFragment : Fragment(), ShowDetail {
     private lateinit var binding: EpisodesFragmentBinding
     private val viewModel: EpisodesViewModel by viewModels()
     private lateinit var episodeAdapter: EpisodeAdapter
-    private var episodes: ArrayList<String>? = ArrayList<String>()
+    private var episodes: ArrayList<String>? = ArrayList()
     private val characterId by lazy {
         arguments?.getString("characterId", "")
     }
@@ -35,6 +36,7 @@ class EpisodesFragment : Fragment(), ShowDetail {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.episodes_fragment, container, false)
+        binding.viewModel = viewModel
         return binding.root
     }
 
@@ -50,7 +52,7 @@ class EpisodesFragment : Fragment(), ShowDetail {
     }
 
     private fun initAdapter() {
-        episodeAdapter = EpisodeAdapter(episodes?: arrayListOf(), this, activity as Activity)
+        episodeAdapter = EpisodeAdapter(this, activity as Activity)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.listItem.layoutManager = layoutManager
         binding.listItem.adapter = episodeAdapter
@@ -63,10 +65,13 @@ class EpisodesFragment : Fragment(), ShowDetail {
 
     private fun observeData() {
         viewModel.episodes.observe(viewLifecycleOwner, Observer {
+            episodes?.clear()
             it.forEach { data ->
                 episodes?.add(data.substringAfterLast("/"))
             }
-            episodeAdapter.notifyDataSetChanged()
+            Log.d(TAG, "observeData: $episodes")
+            episodeAdapter.fillData(episodes!!.toMutableList())
+            Log.d(TAG, "observeData: ${episodeAdapter.itemCount}")
         })
     }
 

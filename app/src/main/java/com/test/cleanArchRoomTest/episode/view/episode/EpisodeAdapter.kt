@@ -9,12 +9,17 @@ import com.test.cleanArchRoomTest.R
 import com.test.cleanArchRoomTest.databinding.EpisodesItemListBinding
 
 class EpisodeAdapter(
-    var list: ArrayList<String>,
     private var onShowDetail: ShowDetail,
-    val activity: Activity
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val activity: Activity
+) : RecyclerView.Adapter<EpisodeAdapter.EpisodeViewHolder>() {
+
+    private var items: MutableList<String> = mutableListOf()
+
     private var layoutInflater: LayoutInflater? = null
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): EpisodeAdapter.EpisodeViewHolder {
         if (layoutInflater == null) {
             layoutInflater = LayoutInflater.from(parent.context)
         }
@@ -24,27 +29,32 @@ class EpisodeAdapter(
             parent,
             false
         )
-        return EpisodeViewHolder(binding,activity)
+        return EpisodeViewHolder(binding, activity)
     }
 
-    override fun getItemCount(): Int {
-        return list.size
+    override fun getItemCount(): Int = items.size
+
+    override fun onBindViewHolder(holder: EpisodeViewHolder, position: Int) {
+        holder.setData(items[position])
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is EpisodeViewHolder) {
-            holder.setData(list[position])
-            holder.binding.selectArrow.setOnClickListener {
-                val data = list[position].substringAfterLast("/")
-                onShowDetail.onShowDetailClicked(data.substring(0, data.length - 1))
+    fun fillData(items: MutableList<String>) {
+        this.items = items
+        notifyDataSetChanged()
+    }
+
+    inner class EpisodeViewHolder(var binding: EpisodesItemListBinding, var activity: Activity) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun setData(data: String) {
+            Log.d(TAG, "setData: $data" )
+            binding.episodeId.text =
+                activity.getString(R.string.episode_episode, data.substring(0, data.length - 1))
+            binding.selectArrow.setOnClickListener {
+                val value = data.substringAfterLast("/")
+                onShowDetail.onShowDetailClicked(value.substring(0, value.length - 1))
             }
         }
     }
 }
 
-class EpisodeViewHolder(var binding: EpisodesItemListBinding,var activity: Activity) :
-    RecyclerView.ViewHolder(binding.root) {
-    fun setData(data: String) {
-        binding.episodeId.text = activity.getString(R.string.episode_episode,data.substring(0, data.length - 1))
-    }
-}
+

@@ -9,17 +9,20 @@ import com.test.cleanArchRoomTest.utils.rx.StickyAction
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 class EpisodesViewModel @ViewModelInject constructor(private val getCharacterEpisodesUseCase: GetCharacterEpisodesUseCase) :
     ViewModel() {
 
-    val episodes = MutableLiveData<List<String>>()
+    private var _episodes = MutableLiveData<List<String>>(arrayListOf())
+
+    val episodes : LiveData<List<String>> get() = _episodes
     private val disposables = CompositeDisposable()
     val showErrorGettingChars = StickyAction<Boolean>()
 
 
     fun getEpisodes(id: String?) {
-        if (episodes.value?.isEmpty() == null) {
+        if (_episodes.value?.isEmpty()!!) {
             getCharacterEpisodesUseCase.getEpisodes(id!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -31,7 +34,9 @@ class EpisodesViewModel @ViewModelInject constructor(private val getCharacterEpi
     private fun handleResult(result: GetCharacterEpisodesUseCase.Result?) {
         when (result) {
             is GetCharacterEpisodesUseCase.Result.Success -> {
-                episodes.value = handleData(result.responseCharacter)
+                _episodes.value = handleData(result.responseCharacter)
+                Log.d(TAG, "handleResult: ${(_episodes.value as ArrayList<String>).size}")
+                Log.d(TAG, "handleResult: ${episodes.value}")
             }
             is GetCharacterEpisodesUseCase.Result.Failure -> showErrorGettingChars.trigger(true)
         }
