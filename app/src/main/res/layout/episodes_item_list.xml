@@ -29,6 +29,7 @@
                 android:layout_marginBottom="@dimen/padding_min_8"
                 android:gravity="start"
                 android:padding="@dimen/padding_min_8"
+                android:text="@{@string/episode_episode(episode)}"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/text_size_12"
                 android:textStyle="bold"

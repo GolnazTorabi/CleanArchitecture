@@ -1,6 +1,5 @@
 package com.test.cleanArchRoomTest.episode.view.episode
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -9,8 +8,7 @@ import com.test.cleanArchRoomTest.R
 import com.test.cleanArchRoomTest.databinding.EpisodesItemListBinding
 
 class EpisodeAdapter(
-    private var onShowDetail: ShowDetail,
-    private val activity: Activity
+    private var onShowDetail: ShowDetail
 ) : RecyclerView.Adapter<EpisodeAdapter.EpisodeViewHolder>() {
 
     private var items: MutableList<String> = mutableListOf()
@@ -29,7 +27,7 @@ class EpisodeAdapter(
             parent,
             false
         )
-        return EpisodeViewHolder(binding, activity)
+        return EpisodeViewHolder(binding)
     }
 
     override fun getItemCount(): Int = items.size
@@ -43,12 +41,10 @@ class EpisodeAdapter(
         notifyDataSetChanged()
     }
 
-    inner class EpisodeViewHolder(var binding: EpisodesItemListBinding, var activity: Activity) :
+    inner class EpisodeViewHolder(var binding: EpisodesItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun setData(data: String) {
-            Log.d(TAG, "setData: $data" )
-            binding.episodeId.text =
-                activity.getString(R.string.episode_episode, data.substring(0, data.length - 1))
+            binding.episode = data.substring(0, data.length - 1)
             binding.selectArrow.setOnClickListener {
                 val value = data.substringAfterLast("/")
                 onShowDetail.onShowDetailClicked(value.substring(0, value.length - 1))

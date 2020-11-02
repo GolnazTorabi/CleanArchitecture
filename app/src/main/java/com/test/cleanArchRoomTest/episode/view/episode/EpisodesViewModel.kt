@@ -1,6 +1,7 @@
 package com.test.cleanArchRoomTest.episode.view.episode
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.test.cleanArchRoomTest.episode.domain.usecase.episode.GetCharacterEpisodesUseCase
@@ -9,14 +10,13 @@ import com.test.cleanArchRoomTest.utils.rx.StickyAction
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 
 class EpisodesViewModel @ViewModelInject constructor(private val getCharacterEpisodesUseCase: GetCharacterEpisodesUseCase) :
     ViewModel() {
 
     private var _episodes = MutableLiveData<List<String>>(arrayListOf())
 
-    val episodes : LiveData<List<String>> get() = _episodes
+    val episodes: LiveData<List<String>> get() = _episodes
     private val disposables = CompositeDisposable()
     val showErrorGettingChars = StickyAction<Boolean>()
 
@@ -35,22 +35,24 @@ class EpisodesViewModel @ViewModelInject constructor(private val getCharacterEpi
         when (result) {
             is GetCharacterEpisodesUseCase.Result.Success -> {
                 _episodes.value = handleData(result.responseCharacter)
-                Log.d(TAG, "handleResult: ${(_episodes.value as ArrayList<String>).size}")
-                Log.d(TAG, "handleResult: ${episodes.value}")
+
             }
             is GetCharacterEpisodesUseCase.Result.Failure -> showErrorGettingChars.trigger(true)
         }
     }
 
     private fun handleData(value: List<String>): ArrayList<String> {
-        val data: ArrayList<String> = value[0].split(",", "[", "]") as ArrayList<String>
+        val data = value[0].split(",", "[", "]") as ArrayList<String>
+        val changedData = ArrayList<String>()
         data.removeAt(0)
         data.removeAt(data.size - 1)
-        return data
+        data.forEach { changeData ->
+            changedData.add(changeData.substringAfterLast("/"))
+        }
+        return changedData
     }
 
-    fun unbound() {
+    override fun onCleared() {
         disposables.clear()
     }
-
 }

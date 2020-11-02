@@ -1,14 +1,11 @@
 package com.test.cleanArchRoomTest.episode.view.episode
 
-import android.app.Activity
-import android.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -20,13 +17,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
-class EpisodesFragment : Fragment(), ShowDetail {
+class EpisodesFragment : androidx.fragment.app.Fragment(), ShowDetail {
 
-    private val disposables = CompositeDisposable()
+
     private lateinit var binding: EpisodesFragmentBinding
-    private val viewModel: EpisodesViewModel by viewModels()
     private lateinit var episodeAdapter: EpisodeAdapter
     private var episodes: ArrayList<String>? = ArrayList()
+
+    private val disposables = CompositeDisposable()
+    private val viewModel: EpisodesViewModel by viewModels()
     private val characterId by lazy {
         arguments?.getString("characterId", "")
     }
@@ -40,19 +39,14 @@ class EpisodesFragment : Fragment(), ShowDetail {
         return binding.root
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        episodes = null
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initAdapter()
         getEpisodes()
     }
 
     private fun initAdapter() {
-        episodeAdapter = EpisodeAdapter(this, activity as Activity)
+        episodeAdapter = EpisodeAdapter(this)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.listItem.layoutManager = layoutManager
         binding.listItem.adapter = episodeAdapter
@@ -66,18 +60,19 @@ class EpisodesFragment : Fragment(), ShowDetail {
     private fun observeData() {
         viewModel.episodes.observe(viewLifecycleOwner, Observer {
             episodes?.clear()
-            it.forEach { data ->
-                episodes?.add(data.substringAfterLast("/"))
-            }
-            Log.d(TAG, "observeData: $episodes")
             episodeAdapter.fillData(episodes!!.toMutableList())
-            Log.d(TAG, "observeData: ${episodeAdapter.itemCount}")
         })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.unbound()
+    override fun onShowDetailClicked(id: String) {
+        val bundle =
+            bundleOf(
+                "id" to CharacterEpisodeCrossRef(
+                    id.toInt(),
+                    characterId?.toInt() ?: 0
+                )
+            )
+        findNavController().navigate(R.id.action_episodesFragment_to_episodeDetailFragment, bundle)
     }
 
     override fun onPause() {
@@ -85,14 +80,8 @@ class EpisodesFragment : Fragment(), ShowDetail {
         disposables.clear()
     }
 
-    override fun onShowDetailClicked(id: String) {
-        val bundle =
-            bundleOf("id" to CharacterEpisodeCrossRef(
-                id.toInt(),
-                characterId?.toInt() ?: 0
-            )
-            )
-        findNavController().navigate(R.id.action_episodesFragment_to_episodeDetailFragment, bundle)
-
+    override fun onDetach() {
+        super.onDetach()
+        episodes = null
     }
 }
