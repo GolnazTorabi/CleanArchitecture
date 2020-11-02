@@ -90,7 +90,7 @@ data class ResultsItem(
 data class Location(
 
     @field:JsonProperty("name")
-    val name: String? = null,
+    var name: String? = null,
 
     @field:JsonProperty("url")
     val url: String? = null
