@@ -9,10 +9,10 @@ import com.test.cleanArchRoomTest.utils.database.converter.StringConverter
 @TypeConverters(StringConverter::class)
 data class EpisodeData(
     @PrimaryKey(autoGenerate = true)
-    val episodeId: Int? = null,
-    val name: String? = null,
-    val characters: List<String?>? = null,
-    val episode: String? = null,
-    val created: String? = null,
-    val url: String? = null
+    var episodeId: Int? = null,
+    var name: String? = null,
+    var characters: List<String?>? = null,
+    var episode: String? = null,
+    var created: String? = null,
+    var url: String? = null
 )

@@ -23,10 +23,6 @@ class EpisodeDetailViewModel @ViewModelInject constructor(
     val episodeData = MutableLiveData<EpisodeData>()
     val showErrorGettingChars = StickyAction<Boolean>()
 
-    fun unbound() {
-        disposables.clear()
-    }
-
     fun getEpisodeDetail(id: String, characterId: String) {
         getEpisodeUseCase.getEpisodes(id, true)
             .subscribeOn(Schedulers.io())
@@ -63,5 +59,9 @@ class EpisodeDetailViewModel @ViewModelInject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe()
+    }
+
+    override fun onCleared() {
+        disposables.clear()
     }
 }

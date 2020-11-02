@@ -65,8 +65,4 @@ class EpisodeDetailFragment : Fragment() {
         disposables.clear()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.unbound()
-    }
 }
