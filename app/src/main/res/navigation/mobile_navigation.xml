@@ -9,18 +9,39 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.test.cleanArchRoomTest.application.peresentation.dashboard.DashboardFragment"
+        android:name="com.test.cleanArchRoomTest.character.view.character.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_navigation_dashboard_to_episodesFragment"
+            app:destination="@id/episodesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.test.cleanArchRoomTest.application.peresentation.home.HomeFragment"
+        android:name="com.test.cleanArchRoomTest.utils.application.peresentation.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/notificationFragment"
-        android:name="com.test.cleanArchRoomTest.application.peresentation.notification.NotificationFragment"
+        android:name="com.test.cleanArchRoomTest.utils.application.peresentation.notification.NotificationFragment"
         android:label="NotificationFragment"
         tools:layout="@layout/fragment_notifications"/>
+    <fragment
+        android:id="@+id/episodesFragment"
+        android:name="com.test.cleanArchRoomTest.episode.view.episode.EpisodesFragment"
+        android:label="episodes_fragment"
+        tools:layout="@layout/episodes_fragment" >
+        <argument
+            android:name="characterId"
+            android:defaultValue="None" />
+        <action
+            android:id="@+id/action_episodesFragment_to_episodeDetailFragment"
+            app:destination="@id/episodeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/episodeDetailFragment"
+        android:name="com.test.cleanArchRoomTest.episode.view.episode.detail.EpisodeDetailFragment"
+        android:label="episode_detail_fragment"
+        tools:layout="@layout/episode_detail_fragment" />
 
 </navigation>

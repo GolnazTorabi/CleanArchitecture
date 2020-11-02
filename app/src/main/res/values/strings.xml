@@ -3,4 +3,18 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="last_location_seen">Last known location: </string>
+    <string name="title_characters_list">Characters</string>
+    <string name="error_title">Error</string>
+    <string name="ok">OK</string>
+    <string name="title_episodes">Episodes</string>
+    <string name="episode_detail">Episode Detail %d</string>
+    <string name="episode_name">Name %s</string>
+    <string name="episode_created">Created %s</string>
+    <string name="episode_episode">Episode  %s</string>
+    <string name="episode_url">Url  %s</string>
+    <string name="episode_character">Characters %s</string>
+
+
 </resources>
