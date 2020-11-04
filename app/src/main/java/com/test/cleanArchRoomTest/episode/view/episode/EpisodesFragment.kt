@@ -22,7 +22,6 @@ class EpisodesFragment : androidx.fragment.app.Fragment(), ShowDetail {
 
     private lateinit var binding: EpisodesFragmentBinding
     private lateinit var episodeAdapter: EpisodeAdapter
-    private var episodes: ArrayList<String>? = ArrayList()
 
     private val disposables = CompositeDisposable()
     private val viewModel: EpisodesViewModel by viewModels()
@@ -59,8 +58,7 @@ class EpisodesFragment : androidx.fragment.app.Fragment(), ShowDetail {
 
     private fun observeData() {
         viewModel.episodes.observe(viewLifecycleOwner, Observer {
-            episodes?.clear()
-            episodeAdapter.fillData(episodes!!.toMutableList())
+            episodeAdapter.fillData(it.toMutableList())
         })
     }
 
@@ -78,10 +76,5 @@ class EpisodesFragment : androidx.fragment.app.Fragment(), ShowDetail {
     override fun onPause() {
         super.onPause()
         disposables.clear()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        episodes = null
     }
 }

@@ -10,16 +10,16 @@ import com.test.cleanArchRoomTest.character.data.response.Origin
 data class CharactersData(
     @PrimaryKey(autoGenerate = true)
     val characterId: Int? = 0,
-    val image: String? = null,
+    var image: String? = null,
     val gender: String? = null,
     val url: String? = null,
     @SuppressWarnings(RoomWarnings.DEFAULT_CONSTRUCTOR)
     @Embedded(prefix = "org")
     var origin: Origin? = null,
-    val name: String? = null,
+    var name: String? = null,
     @SuppressWarnings(RoomWarnings.DEFAULT_CONSTRUCTOR)
     @Embedded(prefix = "loc")
     var location: Location? = null,
-    val status: String? = null,
+    var status: String? = null,
     val episodes : List<String?>? = null
 )

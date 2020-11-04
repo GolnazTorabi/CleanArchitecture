@@ -2,6 +2,7 @@ package com.test.cleanArchRoomTest.character.view.character
 
 import android.annotation.SuppressLint
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.test.cleanArchRoomTest.character.domain.model.CharactersData
@@ -20,16 +21,22 @@ class DashboardViewModel @ViewModelInject constructor(
     ViewModel() {
 
     private val disposables = CompositeDisposable()
-    val progressVisible = MutableLiveData<Boolean>()
-    val charsList = MutableLiveData<List<CharactersData>>()
+
+    private var _charsList = MutableLiveData<List<CharactersData>>(arrayListOf())
+
+    val charsList: LiveData<List<CharactersData>> get() = _charsList
+
     val showErrorGettingChars = StickyAction<Boolean>()
+    val progressVisible = MutableLiveData<Boolean>()
 
     fun bound(hasNetwork: Boolean) {
-        getCharactersUseCase.getCharacters(hasNetwork)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { handleResult(it) }
-            .addTo(disposables)
+        if (_charsList.value?.isEmpty()!!) {
+            getCharactersUseCase.getCharacters(hasNetwork)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { handleResult(it) }
+                .addTo(disposables)
+        }
 
     }
 
@@ -38,7 +45,7 @@ class DashboardViewModel @ViewModelInject constructor(
             is GetCharactersUseCase.Result.Loading -> progressVisible.value = true
             is GetCharactersUseCase.Result.Success -> {
                 insert(result.responseCharacter)
-                charsList.value = result.responseCharacter
+                _charsList.value = result.responseCharacter
             }
             is GetCharactersUseCase.Result.Failure -> showErrorGettingChars.trigger(true)
         }
@@ -52,13 +59,8 @@ class DashboardViewModel @ViewModelInject constructor(
             .subscribe()
     }
 
-    fun unbound() {
-        disposables.clear()
-    }
-
     override fun onCleared() {
-        super.onCleared()
-
+        disposables.clear()
     }
 
 

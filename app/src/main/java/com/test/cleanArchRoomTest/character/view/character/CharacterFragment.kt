@@ -13,10 +13,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.cleanArchRoomTest.R
-import com.test.cleanArchRoomTest.databinding.FragmentDashboardBinding
 import com.test.cleanArchRoomTest.character.domain.model.CharactersData
-import com.test.cleanArchRoomTest.utils.network.NetworkConnection
+import com.test.cleanArchRoomTest.databinding.FragmentDashboardBinding
 import com.test.cleanArchRoomTest.utils.ext.addTo
+import com.test.cleanArchRoomTest.utils.network.NetworkConnection
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
@@ -24,15 +24,11 @@ import io.reactivex.disposables.CompositeDisposable
 class DashboardFragment : Fragment(), CharacterClicked {
 
     private val dashboardViewModel: DashboardViewModel by viewModels()
+    private val disposables = CompositeDisposable()
 
     private lateinit var binding: FragmentDashboardBinding
     private lateinit var adapter: DashBoardAdapter
-
     private var characterList = ArrayList<CharactersData>()
-
-    private val disposables = CompositeDisposable()
-
-    private lateinit var data: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,13 +42,16 @@ class DashboardFragment : Fragment(), CharacterClicked {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
+        getCharacters()
+    }
+
+    private fun getCharacters() {
         dashboardViewModel.bound(NetworkConnection.checkNetwork())
         observeData()
-
     }
 
     private fun initAdapter() {
-        adapter = DashBoardAdapter(requireActivity(), characterList, this)
+        adapter = DashBoardAdapter(this)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.charactersList.layoutManager = layoutManager
         binding.charactersList.adapter = adapter
@@ -60,8 +59,7 @@ class DashboardFragment : Fragment(), CharacterClicked {
 
     private fun observeData() {
         dashboardViewModel.charsList.observe(viewLifecycleOwner, Observer {
-            characterList.addAll(it)
-            adapter.notifyDataSetChanged()
+            adapter.fillData(it.toMutableList())
         })
     }
 
@@ -76,21 +74,14 @@ class DashboardFragment : Fragment(), CharacterClicked {
                 }
             }.addTo(disposables)
     }
-
+    override fun onCharacterClicked(characterId: Int?) {
+        val bundle = bundleOf("characterId" to characterId.toString())
+        findNavController().navigate(R.id.action_navigation_dashboard_to_episodesFragment, bundle)
+    }
     override fun onPause() {
         disposables.clear()
         super.onPause()
     }
 
-    override fun onDestroy() {
-        dashboardViewModel.unbound()
-        super.onDestroy()
-    }
-
-    override fun onCharacterClicked(characterId: Int?) {
-        //TODO open character episodes page
-        val bundle = bundleOf("characterId" to characterId.toString())
-        findNavController().navigate(R.id.action_navigation_dashboard_to_episodesFragment, bundle)
-    }
 }
 

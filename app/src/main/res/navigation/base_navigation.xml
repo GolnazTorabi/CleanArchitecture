@@ -9,9 +9,9 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.test.cleanArchRoomTest.character.view.character.DashboardFragment"
+        android:name="com.test.cleanArchRoomTest.character.view.character.CharacterFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
+        tools:layout="@layout/fragment_character" >
         <action
             android:id="@+id/action_navigation_dashboard_to_episodesFragment"
             app:destination="@id/episodesFragment" />

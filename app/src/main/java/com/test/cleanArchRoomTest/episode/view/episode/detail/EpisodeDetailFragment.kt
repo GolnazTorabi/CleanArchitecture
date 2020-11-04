@@ -53,11 +53,12 @@ class EpisodeDetailFragment : Fragment() {
     }
 
     private fun setEpisodeData(data: EpisodeData?) {
-        binding.name.text = getString(R.string.episode_name, data?.name)
+        binding.detail = data
+        /*binding.name.text = getString(R.string.episode_name, data?.name)
         binding.created.text = getString(R.string.episode_created, data?.created)
         binding.episode.text = getString(R.string.episode_episode, data?.episode)
         binding.url.text = getString(R.string.episode_url, data?.url)
-        binding.character.text = getString(R.string.episode_character, data?.characters)
+        binding.character.text = getString(R.string.episode_character, data?.characters)*/
     }
 
     override fun onPause() {
@@ -65,8 +66,4 @@ class EpisodeDetailFragment : Fragment() {
         disposables.clear()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.unbound()
-    }
 }
