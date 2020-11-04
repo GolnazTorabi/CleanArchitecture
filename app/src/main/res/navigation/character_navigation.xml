@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/character_navigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/character_navigation"
+    app:startDestination="@id/characterFragment">
+    <include app:graph="@navigation/episode_navigation"/>
 
+    <fragment
+        android:id="@+id/characterFragment"
+        android:name="com.test.cleanArchRoomTest.character.view.character.CharacterFragment"
+        android:label="CharacterFragment" >
+
+        <action
+            android:id="@+id/action_characterFragment_to_episode_navigation"
+            app:destination="@id/episode_navigation" />
+    </fragment>
 </navigation>

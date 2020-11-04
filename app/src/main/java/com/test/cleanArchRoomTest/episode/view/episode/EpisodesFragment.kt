@@ -35,6 +35,7 @@ class EpisodesFragment : androidx.fragment.app.Fragment(), ShowDetail {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.episodes_fragment, container, false)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         return binding.root
     }
 
@@ -63,14 +64,13 @@ class EpisodesFragment : androidx.fragment.app.Fragment(), ShowDetail {
     }
 
     override fun onShowDetailClicked(id: String) {
-        val bundle =
-            bundleOf(
-                "id" to CharacterEpisodeCrossRef(
-                    id.toInt(),
-                    characterId?.toInt() ?: 0
-                )
+        val action = EpisodesFragmentDirections.actionEpisodesFragmentToEpisodeDetailFragment(
+            CharacterEpisodeCrossRef(
+                id.toInt(),
+                characterId?.toInt() ?: 0
             )
-        findNavController().navigate(R.id.action_episodesFragment_to_episodeDetailFragment, bundle)
+        )
+        findNavController().navigate(action)
     }
 
     override fun onPause() {

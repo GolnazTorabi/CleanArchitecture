@@ -24,8 +24,8 @@
                 android:id="@+id/character_image"
                 android:layout_width="@dimen/large_image_view_size"
                 android:layout_height="@dimen/large_image_view_size"
-                imageUrl="@{charactersData.image}"
-                placeHolder="@null"
+                app:imageUrl="@{charactersData.image}"
+                app:placeHolder="@{@drawable/ic_baseline_adb_24}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -14,13 +14,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class DashboardViewModel @ViewModelInject constructor(
+class CharacterViewModel @ViewModelInject constructor(
     private val getCharactersUseCase: GetCharactersUseCase,
     private val insertCharacterUseCase: InsertCharacterUseCase
 ) :
     ViewModel() {
 
     private val disposables = CompositeDisposable()
+
 
     private var _charsList = MutableLiveData<List<CharactersData>>(arrayListOf())
 

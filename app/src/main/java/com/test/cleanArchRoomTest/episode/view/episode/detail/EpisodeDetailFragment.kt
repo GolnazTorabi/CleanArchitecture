@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import com.test.cleanArchRoomTest.R
 import com.test.cleanArchRoomTest.databinding.EpisodeDetailFragmentBinding
 import com.test.cleanArchRoomTest.episode.domain.model.CharacterEpisodeCrossRef
@@ -20,10 +21,12 @@ class EpisodeDetailFragment : Fragment() {
 
     private val disposables = CompositeDisposable()
     private lateinit var binding: EpisodeDetailFragmentBinding
+    private val args: EpisodeDetailFragmentArgs by navArgs()
+
 
     private val viewModel: EpisodeDetailViewModel by viewModels()
     private val ids by lazy {
-        arguments?.getParcelable<CharacterEpisodeCrossRef>("id") as CharacterEpisodeCrossRef
+        args.episodeId
     }
 
     override fun onCreateView(
@@ -32,6 +35,8 @@ class EpisodeDetailFragment : Fragment() {
     ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.episode_detail_fragment, container, false)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         return binding.root
     }
 
@@ -43,22 +48,6 @@ class EpisodeDetailFragment : Fragment() {
 
     private fun getEpisodeData() {
         viewModel.getEpisodeDetail(ids.episodeId.toString(), ids.characterId.toString())
-        observeEpisodeDetail()
-    }
-
-    private fun observeEpisodeDetail() {
-        viewModel.episodeData.observe(viewLifecycleOwner, Observer { data ->
-            setEpisodeData(data)
-        })
-    }
-
-    private fun setEpisodeData(data: EpisodeData?) {
-        binding.detail = data
-        /*binding.name.text = getString(R.string.episode_name, data?.name)
-        binding.created.text = getString(R.string.episode_created, data?.created)
-        binding.episode.text = getString(R.string.episode_episode, data?.episode)
-        binding.url.text = getString(R.string.episode_url, data?.url)
-        binding.character.text = getString(R.string.episode_character, data?.characters)*/
     }
 
     override fun onPause() {

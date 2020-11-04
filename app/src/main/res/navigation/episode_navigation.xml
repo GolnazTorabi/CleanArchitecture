@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/episode_navigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/episode_navigation"
+    app:startDestination="@id/episodesFragment">
 
+    <fragment
+        android:id="@+id/episodesFragment"
+        android:name="com.test.cleanArchRoomTest.episode.view.episode.EpisodesFragment"
+        android:label="EpisodesFragment">
+        <argument
+            android:name="characterId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_episodesFragment_to_episodeDetailFragment"
+            app:destination="@id/episodeDetailFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/episodeDetailFragment"
+        android:name="com.test.cleanArchRoomTest.episode.view.episode.detail.EpisodeDetailFragment"
+        android:label="EpisodeDetailFragment">
+        <argument
+            android:name="episodeId"
+            app:argType="com.test.cleanArchRoomTest.episode.domain.model.CharacterEpisodeCrossRef" />
+    </fragment>
 </navigation>

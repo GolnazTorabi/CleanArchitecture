@@ -2,20 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_dashboard">
+    app:startDestination="@id/splashFragment"
+    android:id="@+id/base_navigation">
+
+    <include app:graph="@navigation/character_navigation"/>
 
 
-
-    <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.test.cleanArchRoomTest.character.view.character.CharacterFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_character" >
-        <action
-            android:id="@+id/action_navigation_dashboard_to_episodesFragment"
-            app:destination="@id/episodesFragment" />
-    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.test.cleanArchRoomTest.utils.application.peresentation.home.HomeFragment"
@@ -27,21 +19,14 @@
         android:label="NotificationFragment"
         tools:layout="@layout/fragment_notifications"/>
     <fragment
-        android:id="@+id/episodesFragment"
-        android:name="com.test.cleanArchRoomTest.episode.view.episode.EpisodesFragment"
-        android:label="episodes_fragment"
-        tools:layout="@layout/episodes_fragment" >
-        <argument
-            android:name="characterId"
-            android:defaultValue="None" />
+        android:id="@+id/splashFragment"
+        android:name="com.test.cleanArchRoomTest.utils.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+
         <action
-            android:id="@+id/action_episodesFragment_to_episodeDetailFragment"
-            app:destination="@id/episodeDetailFragment" />
+            android:id="@+id/action_splashFragment_to_character_navigation"
+            app:destination="@id/character_navigation" />
     </fragment>
-    <fragment
-        android:id="@+id/episodeDetailFragment"
-        android:name="com.test.cleanArchRoomTest.episode.view.episode.detail.EpisodeDetailFragment"
-        android:label="episode_detail_fragment"
-        tools:layout="@layout/episode_detail_fragment" />
 
 </navigation>
