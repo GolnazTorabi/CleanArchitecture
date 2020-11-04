@@ -14,20 +14,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.cleanArchRoomTest.R
 import com.test.cleanArchRoomTest.character.domain.model.CharactersData
-import com.test.cleanArchRoomTest.databinding.FragmentDashboardBinding
+import com.test.cleanArchRoomTest.databinding.FragmentCharacterBinding
 import com.test.cleanArchRoomTest.utils.ext.addTo
 import com.test.cleanArchRoomTest.utils.network.NetworkConnection
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
-class DashboardFragment : Fragment(), CharacterClicked {
+class CharacterFragment : Fragment(), CharacterClicked {
 
-    private val dashboardViewModel: DashboardViewModel by viewModels()
+    private val dashboardViewModel: CharacterViewModel by viewModels()
     private val disposables = CompositeDisposable()
 
-    private lateinit var binding: FragmentDashboardBinding
-    private lateinit var adapter: DashBoardAdapter
+    private lateinit var binding: FragmentCharacterBinding
+    private lateinit var adapter: CharacterAdapter
     private var characterList = ArrayList<CharactersData>()
 
     override fun onCreateView(
@@ -35,7 +35,7 @@ class DashboardFragment : Fragment(), CharacterClicked {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_character, container, false)
         return binding.root
     }
 
@@ -51,7 +51,7 @@ class DashboardFragment : Fragment(), CharacterClicked {
     }
 
     private fun initAdapter() {
-        adapter = DashBoardAdapter(this)
+        adapter = CharacterAdapter(this)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.charactersList.layoutManager = layoutManager
         binding.charactersList.adapter = adapter
@@ -74,10 +74,14 @@ class DashboardFragment : Fragment(), CharacterClicked {
                 }
             }.addTo(disposables)
     }
+
     override fun onCharacterClicked(characterId: Int?) {
-        val bundle = bundleOf("characterId" to characterId.toString())
-        findNavController().navigate(R.id.action_navigation_dashboard_to_episodesFragment, bundle)
+        val bundle = bundleOf(
+            "characterId" to characterId.toString()
+        )
+        findNavController().navigate(R.id.action_characterFragment_to_episode_navigation,bundle)
     }
+
     override fun onPause() {
         disposables.clear()
         super.onPause()

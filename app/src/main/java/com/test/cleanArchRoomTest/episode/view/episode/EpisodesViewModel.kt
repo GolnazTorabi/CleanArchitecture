@@ -14,6 +14,7 @@ import io.reactivex.schedulers.Schedulers
 class EpisodesViewModel @ViewModelInject constructor(private val getCharacterEpisodesUseCase: GetCharacterEpisodesUseCase) :
     ViewModel() {
 
+
     private var _episodes = MutableLiveData<List<String>>(arrayListOf())
 
     val episodes: LiveData<List<String>> get() = _episodes
